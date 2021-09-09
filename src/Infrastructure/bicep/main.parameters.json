@@ -1,0 +1,17 @@
+{
+    "appName": {
+        "value": "dapr"
+    },
+    "region": {
+        "value": "southcentralus"
+    },
+    "environment": {
+        "value": "mce123"
+    },
+    "adminUsername": {
+        "value": "marcelos"
+    },
+    "publicSSHKey": {
+        "value" : "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7nAW8fO1AS/LXh5oEylwgMnROSspTf734FCCVMA4z1sUwEAdmmMWukOEgiTBuxEJE+1aF4O9uZw1Ho1PTegUZlD3fzvQtuqeVj0xjWovCtQr0+DeP/Ki3MSzESztjYcGgmD92kGFtVRNgSOXJrOuzW6liPEi9S/lBQdpDa4jogyiXnwOg/p4u0GnLhPVKQry4hPaKS0mIOL2/KK0KbDTyEim/Ef9xP5TIrYCY0cmkoB8MnwG6o0ssRGZDoITxe3Zz/4OZ+/sgn8ymFl+XuMa1gLgOn0LBrhsZzekKwUl117UT7e/0sW4K83nAOjSbFaDhuC8gzzwyOTEaNf5DsHKr northamerica\\marcelos@MARCELOS-SB4"
+    }
+}
