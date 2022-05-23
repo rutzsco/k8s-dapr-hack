@@ -24,6 +24,9 @@ namespace TrafficControlService
                 new DefaultSpeedingViolationCalculator("A12", 10, 100, 5));
 
             services.AddHttpClient();
+            services.AddDaprClient(builder => builder
+          .UseHttpEndpoint($"http://localhost:3600")
+          .UseGrpcEndpoint($"http://localhost:60000"));
 
             services.AddSingleton<IVehicleStateRepository, InMemoryVehicleStateRepository>();
 

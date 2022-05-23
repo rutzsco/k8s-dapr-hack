@@ -18,6 +18,8 @@ namespace Simulation.Proxies
         {
             var eventJson = JsonSerializer.Serialize(vehicleRegistered);
             var message = JsonContent.Create<VehicleRegistered>(vehicleRegistered);
+
+    
             _httpClient.PostAsync("http://localhost:6000/entrycam", message).Wait();
         }
 
