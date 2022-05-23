@@ -1,0 +1,31 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - src/TrafficControlService/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  rootDirectory: 'src/TrafficControlService'
+  dockerRegistryServiceConnection: '27c27f09-dfdb-4663-a63c-6bc9854349c9'
+  dockerImageRepository: 'dapr-hack/TrafficControlService'
+  dockerFilePath: '$(Build.SourcesDirectory)/$(rootDirectory)/Dockerfile'
+  dockerImageTag: '$(Build.BuildNumber)'
+
+steps:
+
+- task: Docker@2
+  displayName: 'Container - Build and push'
+  inputs:
+    containerRegistry: '$(dockerRegistryServiceConnection)'
+    repository: '$(dockerImageRepository)'
+    command: 'buildAndPush'
+    Dockerfile: '$(dockerFilePath)'
+    buildContext: '$(Build.SourcesDirectory)/$(rootDirectory)/'
+    tags: |
+      $(dockerImageTag)
+      latest
