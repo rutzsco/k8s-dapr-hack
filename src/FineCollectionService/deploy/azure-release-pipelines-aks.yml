@@ -1,0 +1,36 @@
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'FineCollectionService - BUILD'
+  
+variables:
+  azureSubscription: 'Demo Account'
+
+stages:
+
+ - stage: CI
+   displayName: CI Stage 
+   variables:
+     kubernetesCluster: 'rutzsco-aks1'
+   jobs:
+   - deployment: Deploy
+     displayName: Deploy
+     environment: 'CI'
+     pool:
+        vmImage: 'ubuntu-latest'   
+      
+     strategy:
+        runOnce:
+          deploy:
+  
+            steps:
+
+            - task: KubernetesManifest@0
+              inputs:
+                action: 'deploy'
+                kubernetesServiceConnection: 'dapr-traffic-control'
+                namespace: 'remote-monitor-ci'
+                manifests: '$(Pipeline.Workspace)/build/Deployment/deployment.yaml'
+                containers: 'rutzscocr.azurecr.io/remote-monitor/topology-service:$(resources.pipeline.build.runName)'

@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name: finecollectionservice
-        image: crdaprusscdemo.azurecr.io/finecollectionservice:assignment08
+        image: rutzscocr.azurecr.io/finecollectionservice:assignment08
         ports:
         - containerPort: 6001
         imagePullPolicy: Always
