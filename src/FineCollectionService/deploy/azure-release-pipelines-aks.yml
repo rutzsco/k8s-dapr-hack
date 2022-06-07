@@ -30,7 +30,7 @@ stages:
             - task: KubernetesManifest@0
               inputs:
                 action: 'deploy'
-                kubernetesServiceConnection: 'dapr-traffic-control'
-                namespace: 'remote-monitor-ci'
+                kubernetesServiceConnection: 'rutzsco-aks1'
+                namespace: 'dapr-traffic-control'
                 manifests: '$(Pipeline.Workspace)/build/Deployment/deployment.yaml'
                 containers: 'rutzscocr.azurecr.io/remote-monitor/topology-service:$(resources.pipeline.build.runName)'
