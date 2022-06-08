@@ -1,9 +1,9 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: finecollectionservice 
+  name: vehicleregistrationservice 
   labels:
-    app: finecollectionservice
+    app: vehicleregistrationservice
 spec:
   type: ClusterIP
   ports:
@@ -11,29 +11,28 @@ spec:
     port: 80
     targetPort: 3500
   selector:
-    app: finecollectionservice
+    app: vehicleregistrationservice
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: finecollectionservice
+  name: vehicleregistrationservice
   labels:
-    app: finecollectionservice
+    app: vehicleregistrationservice
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: finecollectionservice
+      app: vehicleregistrationservice
   template:
     metadata:
       labels:
-        app: finecollectionservice
-        aadpodidbinding: mi-aks-dapr-ussc-demo
+        app: vehicleregistrationservice
       annotations:
         dapr.io/enabled: "true"
-        dapr.io/app-id: "finecollectionservice"
-        dapr.io/app-port: "6001"
+        dapr.io/app-id: "vehicleregistrationservice"
+        dapr.io/app-port: "6002"
         dapr.io/log-level: "debug"
         dapr.io/sidecar-cpu-request: "100m"
         dapr.io/sidecar-memory-request: "250Mi"
@@ -42,10 +41,10 @@ spec:
         dapr.io/config: "zipkin"
     spec:
       containers:
-      - name: finecollectionservice
-        image: rutzscocr.azurecr.io/finecollectionservice:latest
+      - name: vehicleregistrationservice
+        image: rutzscocr.azurecr.io/vehicleregistrationservice:latest
         ports:
-        - containerPort: 6001
+        - containerPort: 6002
         imagePullPolicy: Always
         resources:
           requests:
@@ -70,3 +69,24 @@ spec:
           periodSeconds: 10
           timeoutSeconds : 5
           failureThreshold: 3
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vehicleregistrationservice
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+  - host: vehicleregistrationservice.e13e6fb6d2534a41ae60.southcentralus.aksapp.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: vehicleregistrationservice
+            port: 
+              number: 80
+              

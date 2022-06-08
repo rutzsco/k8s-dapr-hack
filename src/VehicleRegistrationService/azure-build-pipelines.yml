@@ -29,3 +29,9 @@ steps:
     tags: |
       $(dockerImageTag)
       latest
+      
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/$(rootDirectory)/deploy/'
+    artifact: 'Deploy'
+    publishLocation: 'pipeline'

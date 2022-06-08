@@ -1,0 +1,36 @@
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'VehicleRegistrationService - BUILD'
+  
+variables:
+  azureSubscription: 'Demo Account'
+
+stages:
+
+ - stage: CI
+   displayName: CI Stage 
+   variables:
+     kubernetesCluster: 'rutzsco-aks1'
+   jobs:
+   - deployment: Deploy
+     displayName: Deploy
+     environment: 'CI'
+     pool:
+        vmImage: 'ubuntu-latest'   
+      
+     strategy:
+        runOnce:
+          deploy:
+  
+            steps:
+
+            - task: KubernetesManifest@0
+              inputs:
+                action: 'deploy'
+                kubernetesServiceConnection: 'rutzsco-aks1'
+                namespace: 'dapr-traffic-control'
+                manifests: '$(Pipeline.Workspace)/build/Deploy/deployment.yaml'
+                containers: 'rutzscocr.azurecr.io/dapr-hack/vehicleregistrationservice:$(resources.pipeline.build.runName)'
