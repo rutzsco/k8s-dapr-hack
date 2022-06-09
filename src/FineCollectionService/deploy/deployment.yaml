@@ -21,7 +21,7 @@ metadata:
   labels:
     app: finecollectionservice
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: finecollectionservice
@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name: finecollectionservice
-        image: rutzscocr.azurecr.io/finecollectionservice:latest
+        image: rutzscocr.azurecr.io/dapr-hack/finecollectionservice:latest
         ports:
         - containerPort: 6001
         imagePullPolicy: Always

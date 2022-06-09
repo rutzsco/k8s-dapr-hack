@@ -21,7 +21,7 @@ metadata:
   labels:
     app: vehicleregistrationservice
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: vehicleregistrationservice
@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
       - name: vehicleregistrationservice
-        image: rutzscocr.azurecr.io/vehicleregistrationservice:latest
+        image: rutzscocr.azurecr.io/dapr-hack/vehicleregistrationservice:latest
         ports:
         - containerPort: 6002
         imagePullPolicy: Always
