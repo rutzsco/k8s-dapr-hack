@@ -9,7 +9,7 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 6000
+    targetPort: 6002
   selector:
     app: trafficcontrolservice
 
@@ -32,7 +32,7 @@ spec:
       annotations:
         dapr.io/enabled: "true"
         dapr.io/app-id: "trafficcontrolservice"
-        dapr.io/app-port: "6000"
+        dapr.io/app-port: "6002"
         dapr.io/log-level: "debug"
         dapr.io/sidecar-cpu-request: "100m"
         dapr.io/sidecar-memory-request: "250Mi"
@@ -44,7 +44,7 @@ spec:
       - name: trafficcontrolservice
         image: rutzscocr.azurecr.io/dapr-hack/trafficcontrolservice:latest
         ports:
-        - containerPort: 6000
+        - containerPort: 6002
         imagePullPolicy: Always
         resources:
           requests:
