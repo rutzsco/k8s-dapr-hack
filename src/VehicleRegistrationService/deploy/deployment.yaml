@@ -53,4 +53,20 @@ spec:
           limits:
             cpu: 1000m
             memory: 200Mi
+        livenessProbe:
+          httpGet:
+            path: v1.0/healthz
+            port: 3500
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds : 5
+          failureThreshold : 3
+        readinessProbe:
+          httpGet:
+            path: v1.0/healthz
+            port: 3500
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds : 5
+          failureThreshold: 3
               
