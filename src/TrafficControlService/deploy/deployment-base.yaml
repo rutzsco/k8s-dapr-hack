@@ -1,0 +1,49 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: trafficcontrolservice
+  labels:
+    app: trafficcontrolservice
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 6002
+  selector:
+    app: trafficcontrolservice
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trafficcontrolservice
+  labels:
+    app: trafficcontrolservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trafficcontrolservice
+  template:
+    metadata:
+      labels:
+        app: trafficcontrolservice
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: trafficcontrolservice
+        image: rutzscocr.azurecr.io/dapr-hack/trafficcontrolservice:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 6002
+        env:
+        - name: TBD
+          value: "TBD"
