@@ -9,7 +9,7 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 6002
+    targetPort: 6000
   selector:
     app: trafficcontrolservice
 
@@ -43,7 +43,7 @@ spec:
             cpu: 250m
             memory: 256Mi
         ports:
-        - containerPort: 6002
+        - containerPort: 6000
         env:
         - name: TBD
           value: "TBD"
