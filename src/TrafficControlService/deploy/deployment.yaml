@@ -9,7 +9,7 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 3500
+    targetPort: 6000
   selector:
     app: trafficcontrolservice
 
