@@ -15,6 +15,7 @@ namespace TrafficControlService
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
+                    .UseUrls("http://localhost:6000")
                         .UseStartup<Startup>();
                 });
     }
