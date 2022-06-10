@@ -17,5 +17,6 @@ WORKDIR /app
 COPY --from=build /app ./
 EXPOSE 80
 EXPOSE 3500
+EXPOSE 6000
 
 ENTRYPOINT ["dotnet", "TrafficControlService.dll"]
