@@ -5,7 +5,7 @@ metadata:
   labels:
     app: vehicleregistrationservice
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - protocol: TCP
     port: 80
@@ -39,7 +39,6 @@ spec:
         dapr.io/sidecar-memory-request: "250Mi"
         dapr.io/sidecar-cpu-limit: "300m"
         dapr.io/sidecar-memory-limit: "1000Mi"
-        dapr.io/config: "zipkin"
     spec:
       containers:
       - name: vehicleregistrationservice
