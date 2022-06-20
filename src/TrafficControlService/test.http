@@ -1,3 +1,20 @@
+@baseUrl =  http://20.124.151.147
+//@baseUrl =  http://127.0.0.1:6000
+//@baseUrl =  http://20.124.151.142
+
+// Status
+GET {{baseUrl}}/status
+
+###
+
+// Status Dapr
+GET {{baseUrl}}/v1.0/invoke/trafficcontrolservice/method/status
+
+###
+
+// Status Dapr
+GET {{baseUrl}}/v1.0/healthz
+
 // Register entry
 POST http://127.0.0.1:6000/entrycam
 Content-Type: application/json
