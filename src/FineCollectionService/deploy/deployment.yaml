@@ -35,11 +35,11 @@ spec:
         dapr.io/app-id: "finecollectionservice"
         dapr.io/app-port: "6001"
         dapr.io/log-level: "debug"
+        dapr.io/sidecar-listen-addresses : "0.0.0.0"
         dapr.io/sidecar-cpu-request: "100m"
         dapr.io/sidecar-memory-request: "250Mi"
         dapr.io/sidecar-cpu-limit: "300m"
         dapr.io/sidecar-memory-limit: "1000Mi"
-        dapr.io/config: "zipkin"
     spec:
       containers:
       - name: finecollectionservice
