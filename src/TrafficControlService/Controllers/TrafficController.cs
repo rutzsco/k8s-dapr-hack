@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using TrafficControlService.Repositories;
 using Dapr.Client;
+using System;
 
 namespace TrafficControlService.Controllers
 {
@@ -104,8 +105,9 @@ namespace TrafficControlService.Controllers
 
                 return Ok();
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogError($"An error occured - {ex.Message}", ex);
                 return StatusCode(500);
             }
         }
