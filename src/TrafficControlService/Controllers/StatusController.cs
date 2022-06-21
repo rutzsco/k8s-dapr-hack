@@ -19,7 +19,7 @@ namespace TrafficControlService.Controllers
         {
             Console.WriteLine("Hello World!");
             _logger.LogInformation("Processing reqest - status");
-            return new OkObjectResult("OK");
+            return new OkObjectResult("OK-V1");
         }
     }
 }
