@@ -82,8 +82,7 @@ namespace TrafficControlService.Controllers
                 await _vehicleStateRepository.SaveVehicleStateAsync(vehicleState);
 
                 // handle possible speeding violation
-                int violation = _speedingViolationCalculator.DetermineSpeedingViolationInKmh(
-                    vehicleState.EntryTimestamp, vehicleState.ExitTimestamp);
+                int violation = _speedingViolationCalculator.DetermineSpeedingViolationInKmh(vehicleState.EntryTimestamp, vehicleState.ExitTimestamp);
                 if (violation > 0)
                 {
                     _logger.LogInformation($"Speeding violation detected ({violation} KMh) of vehicle with license-number {vehicleState.LicenseNumber}.");
