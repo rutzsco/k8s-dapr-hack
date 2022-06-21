@@ -41,8 +41,7 @@ namespace TrafficControlService.Controllers
             try
             {
                 // log entry
-                _logger.LogInformation($"ENTRY detected in lane {msg.Lane} at {msg.Timestamp.ToString("hh:mm:ss")} " +
-                    $"of vehicle with license-number {msg.LicenseNumber}.");
+                _logger.LogInformation($"ENTRY detected in lane {msg.Lane} at {msg.Timestamp.ToString("hh:mm:ss")} of vehicle with license-number {msg.LicenseNumber}.");
 
                 // store vehicle state
                 var vehicleState = new VehicleState
@@ -65,6 +64,9 @@ namespace TrafficControlService.Controllers
         {
             try
             {
+                if (daprClient == null)
+                    throw new ArgumentOutOfRangeException("daprClient", "DaprClient is null.");
+
                 // get vehicle state
                 var vehicleState = await _vehicleStateRepository.GetVehicleStateAsync(msg.LicenseNumber);
                 if (vehicleState == null)
@@ -73,8 +75,7 @@ namespace TrafficControlService.Controllers
                 }
 
                 // log exit
-                _logger.LogInformation($"EXIT detected in lane {msg.Lane} at {msg.Timestamp.ToString("hh:mm:ss")} " +
-                    $"of vehicle with license-number {msg.LicenseNumber}.");
+                _logger.LogInformation($"EXIT detected in lane {msg.Lane} at {msg.Timestamp.ToString("hh:mm:ss")} of vehicle with license-number {msg.LicenseNumber}.");
 
                 // update state
                 vehicleState.ExitTimestamp = msg.Timestamp;
@@ -85,8 +86,7 @@ namespace TrafficControlService.Controllers
                     vehicleState.EntryTimestamp, vehicleState.ExitTimestamp);
                 if (violation > 0)
                 {
-                    _logger.LogInformation($"Speeding violation detected ({violation} KMh) of vehicle" +
-                        $"with license-number {vehicleState.LicenseNumber}.");
+                    _logger.LogInformation($"Speeding violation detected ({violation} KMh) of vehicle with license-number {vehicleState.LicenseNumber}.");
 
                     var speedingViolation = new SpeedingViolation
                     {
@@ -100,6 +100,8 @@ namespace TrafficControlService.Controllers
                     var message = JsonContent.Create<SpeedingViolation>(speedingViolation);
                     //await _httpClient.PostAsync("http://localhost:6001/collectfine", message);
                     //await _httpClient.PostAsync("http://localhost:3600/v1.0/publish/pubsub/collectfine", message);
+
+
                     await daprClient.PublishEventAsync("pubsub", "collectfine", speedingViolation);
                 }
 
@@ -107,8 +109,8 @@ namespace TrafficControlService.Controllers
             }
             catch(Exception ex)
             {
-                _logger.LogError($"An error occured - {ex.Message}", ex);
-                return StatusCode(500);
+                _logger.LogError($"An error occured - {ex.Message} - {ex.StackTrace}", ex);
+                throw;
             }
         }
     }
