@@ -13,9 +13,8 @@ variables:
   azureServiceConnection: 'Demo Account'
   resourceGroupName: 'rutzsco-dapr-demo'
   location: 'eastus'
-  appName: 'dapr-demo'
-  environmentName: 'rutzsco'
-  environmentSuffix: 'ci'
+  appName: 'rutzsco-dapr-demo'
+  environment: 'ci'
   templateFile: 'Infrastructure/bicep/main.bicep'
 
 pool:
@@ -29,7 +28,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az group create --name $(resourceGroupName) --location $(location)  
-      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters appName=$(appName) environmentName=$(environmentName) environmentSuffix=$(environmentSuffix) > outputs.json
+      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters appName=$(appName) environment=$(environment) > outputs.json
 
       
       

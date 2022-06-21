@@ -1,7 +1,7 @@
 param appName string
 param environment string
 
-var longName = '${environment}-${appName}'
+var longName = '${appName}-${environment}'
 
 module serviceBusModule 'serviceBus.bicep' = {
   name: 'serviceBusDeploy'
