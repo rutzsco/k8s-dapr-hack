@@ -17,6 +17,7 @@ namespace TrafficControlService.Controllers
         [HttpGet("status")]
         public IActionResult Get()
         {
+            Console.WriteLine("Hello World!");
             _logger.LogInformation("Processing reqest - status");
             return new OkObjectResult("OK");
         }

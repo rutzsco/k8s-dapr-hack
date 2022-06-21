@@ -14,7 +14,7 @@ namespace TrafficControlService
             Host.CreateDefaultBuilder(args)
                     .ConfigureLogging(logging =>
                     {
-                        logging.ClearProviders();
+                        logging.AddDebug();
                         logging.AddConsole();
                     })
                 .ConfigureWebHostDefaults(webBuilder =>
