@@ -1,17 +1,18 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: pubsub-sb
+  name: pubsub
+  namespace: dapr-traffic-control
 spec:
   type: pubsub.azure.servicebus
   version: v1
   metadata:
   - name: connectionString
     secretKeyRef:
-      name: servicebusconnectionstring
+      name: dapr-traffic-control
       key:  servicebusconnectionstring
 auth:
-  secretStore: envvar-secret-store
+  secretStore: secret-store
 
 
   # - name: timeoutInSec # Optional

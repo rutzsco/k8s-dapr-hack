@@ -1,5 +1,5 @@
 // K8 Dapr Endpoint 
-//@baseUrl =  http://20.85.253.155
+@baseUrlDapr =  http://20.85.253.155
 
 //@baseUrl =  http://127.0.0.1:6000
 
@@ -35,3 +35,9 @@ POST {{baseUrl}}/exitcam
 Content-Type: application/json
 
 { "lane": 1, "licenseNumber": "XT-346-Y", "timestamp": "2020-09-10T10:38:52" }
+
+
+
+###
+
+GET {{baseUrlDapr}}/v1.0/secrets/secret-store/dapr-traffic-control
