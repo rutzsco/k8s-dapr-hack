@@ -15,7 +15,7 @@ variables:
   location: 'eastus'
   environmentName: 'rutzsco-dapr-demo'
   environmentSuffix: 'ci'
-  templateFile: 'infrastructure/main.bicep'
+  templateFile: 'Infrastructure/bicep/main.bicep'
 
 pool:
   vmImage: $(vmImageName)
