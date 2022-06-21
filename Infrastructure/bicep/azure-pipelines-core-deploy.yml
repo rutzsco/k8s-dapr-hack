@@ -5,15 +5,15 @@ trigger:
     - main-k
   paths:
     include:
-    - infrastructure/*
+    - Infrastructure/*
     
 variables:
   vmImageName: 'ubuntu-latest'
 
   azureServiceConnection: 'Demo Account'
-  resourceGroupName: 'poc-omp-edge-services'
-  location: 'eastus2'
-  environmentName: 'pocomp'
+  resourceGroupName: 'rutzsco-dapr-demo'
+  location: 'eastus'
+  environmentName: 'rutzsco-dapr-demo'
   environmentSuffix: 'ci'
   templateFile: 'infrastructure/main.bicep'
 
@@ -28,7 +28,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az group create --name $(resourceGroupName) --location $(location)  
-      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters environmentName=$(environmentName) environmentSuffix=$(environmentSuffix) sqlAdministratorLoginPassword=$(sqlAdministratorLoginPassword) > outputs.json
+      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters environmentName=$(environmentName) environmentSuffix=$(environmentSuffix) > outputs.json
 
       
       
