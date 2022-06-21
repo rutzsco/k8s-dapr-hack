@@ -11,11 +11,7 @@ namespace TrafficControlService
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args).ConfigureLogging((_, logging) =>
-                {
-                    logging.ClearProviders();
-                    logging.AddSimpleConsole(options => options.IncludeScopes = true);
-                })
+            Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
