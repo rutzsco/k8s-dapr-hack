@@ -5,11 +5,27 @@ metadata:
   labels:
     app: finecollectionservice
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
   - protocol: TCP
     port: 80
     targetPort: 3500
+  selector:
+    app: finecollectionservice
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: finecollectionservice-direct 
+  labels:
+    app: finecollectionservice
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 6001
   selector:
     app: finecollectionservice
 
