@@ -41,19 +41,20 @@ namespace FineCollectionService.Controllers
             decimal fine = _fineCalculator.CalculateFine(_fineCalculatorLicenseKey, speedingViolation.ViolationInKmh);
 
             // get owner info
-            //var vehicleInfo = await _vehicleRegistrationService.GetVehicleInfo(speedingViolation.VehicleId);
+            var vehicleInfo = await _vehicleRegistrationService.GetVehicleInfo(speedingViolation.VehicleId);
 
             // log fine
-            //string fineString = fine == 0 ? "tbd by the prosecutor" : $"{fine} Euro";
-            //_logger.LogInformation($"Sent speeding ticket to {vehicleInfo.OwnerName}. " +
-            //    $"Road: {speedingViolation.RoadId}, Licensenumber: {speedingViolation.VehicleId}, " +
-            //    $"Vehicle: {vehicleInfo.Brand} {vehicleInfo.Model}, " +
-            //    $"Violation: {speedingViolation.ViolationInKmh} Km/h, Fine: {fineString}, " +
-            //    $"On: {speedingViolation.Timestamp.ToString("dd-MM-yyyy")} " +
-            //    $"at {speedingViolation.Timestamp.ToString("hh:mm:ss")}.");
+            string fineString = fine == 0 ? "tbd by the prosecutor" : $"{fine} Euro";
+            _logger.LogInformation($"Sent speeding ticket to {vehicleInfo.OwnerName}. " +
+                $"Road: {speedingViolation.RoadId}, Licensenumber: {speedingViolation.VehicleId}, " +
+                $"Vehicle: {vehicleInfo.Brand} {vehicleInfo.Model}, " +
+                $"Violation: {speedingViolation.ViolationInKmh} Km/h, Fine: {fineString}, " +
+                $"On: {speedingViolation.Timestamp.ToString("dd-MM-yyyy")} " +
+                $"at {speedingViolation.Timestamp.ToString("hh:mm:ss")}.");
 
             // send fine by email
             // TODO
+
             _logger.LogInformation("Processing reqest - fine");
             return Ok();
         }

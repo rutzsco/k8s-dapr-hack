@@ -24,10 +24,11 @@ namespace FineCollectionService
         {
             services.AddSingleton<IFineCalculator, HardCodedFineCalculator>();
 
-            // add service proxies
-            services.AddSingleton<VehicleRegistrationService>(_ =>
-                new VehicleRegistrationService(DaprClient.CreateInvokeHttpClient("vehicleregistrationservice", "http://localhost:3602")));
+            services.AddDaprClient();
 
+            // add service proxies
+            services.AddSingleton<VehicleRegistrationService, VehicleRegistrationService>();
+ 
             services.AddControllers().AddDapr();
         }
 
