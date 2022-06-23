@@ -54,8 +54,6 @@ namespace FineCollectionService.Controllers
 
             // send fine by email
             // TODO
-
-            _logger.LogInformation("Processing reqest - fine");
             return Ok();
         }
 
