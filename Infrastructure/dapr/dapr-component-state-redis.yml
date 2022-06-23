@@ -10,7 +10,7 @@ spec:
     value: redis-rutzsco-dapr-demo-ci.redis.cache.windows.net:6380
   - name: redisPassword
     secretKeyRef:
-      name: dapr-traffic-control
+      name: dapr-traffic-control-redis
       key:  redisPassword
   - name: actorStateStore
     value: "true"

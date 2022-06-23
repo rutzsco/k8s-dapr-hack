@@ -25,7 +25,7 @@ namespace TrafficControlService
             services.AddHttpClient();
             services.AddDaprClient();
 
-            services.AddSingleton<IVehicleStateRepository, InMemoryVehicleStateRepository>();
+            services.AddSingleton<IVehicleStateRepository, DaprVehicleStateRepository>();
 
             services.AddControllers();
         }
