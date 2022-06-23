@@ -17,6 +17,13 @@ module redisCacheModule 'redisCache.bicep' = {
   }  
 }
 
+module logicAppModule 'logicApp.bicep' = {
+  name: 'logicAppDeploy'
+  params: {
+    longName: longName
+  }  
+}
+
 output subscriptionId string = subscription().subscriptionId
 output resourceGroupName string = resourceGroup().name
 output serviceBusName string = serviceBusModule.outputs.serviceBusName
