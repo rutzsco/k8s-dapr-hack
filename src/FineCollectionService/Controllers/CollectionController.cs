@@ -19,13 +19,17 @@ namespace FineCollectionService.Controllers
         private readonly ILogger<CollectionController> _logger;
         private readonly IFineCalculator _fineCalculator;
         private readonly VehicleRegistrationService _vehicleRegistrationService;
+        private readonly NotificationService _notificationService;
 
         public CollectionController(ILogger<CollectionController> logger,
-            IFineCalculator fineCalculator, VehicleRegistrationService vehicleRegistrationService)
+                                    IFineCalculator fineCalculator,
+                                    VehicleRegistrationService vehicleRegistrationService,
+                                    NotificationService notificationService)
         {
             _logger = logger;
             _fineCalculator = fineCalculator;
             _vehicleRegistrationService = vehicleRegistrationService;
+            _notificationService = notificationService;
 
             // set finecalculator component license-key
             if (_fineCalculatorLicenseKey == null)
@@ -45,15 +49,19 @@ namespace FineCollectionService.Controllers
 
             // log fine
             string fineString = fine == 0 ? "tbd by the prosecutor" : $"{fine} Euro";
-            _logger.LogInformation($"Sent speeding ticket to {vehicleInfo.OwnerName}. " +
+            var fineMessage = $"Sent speeding ticket to {vehicleInfo.OwnerName}. " +
                 $"Road: {speedingViolation.RoadId}, Licensenumber: {speedingViolation.VehicleId}, " +
                 $"Vehicle: {vehicleInfo.Brand} {vehicleInfo.Model}, " +
                 $"Violation: {speedingViolation.ViolationInKmh} Km/h, Fine: {fineString}, " +
                 $"On: {speedingViolation.Timestamp.ToString("dd-MM-yyyy")} " +
-                $"at {speedingViolation.Timestamp.ToString("hh:mm:ss")}.");
+                $"at {speedingViolation.Timestamp.ToString("hh:mm:ss")}.";
 
-            // send fine by email
-            // TODO
+            _logger.LogInformation(fineMessage);
+
+
+
+            await _notificationService.SendFineNotification(speedingViolation, fineMessage);
+
             return Ok();
         }
 

@@ -28,7 +28,8 @@ namespace FineCollectionService
 
             // add service proxies
             services.AddSingleton<VehicleRegistrationService, VehicleRegistrationService>();
- 
+            services.AddSingleton<NotificationService, NotificationService>();
+
             services.AddControllers().AddDapr();
         }
 
