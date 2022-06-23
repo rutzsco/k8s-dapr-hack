@@ -10,6 +10,13 @@ module serviceBusModule 'serviceBus.bicep' = {
   }
 }
 
+module redisCacheModule 'redisCache.bicep' = {
+  name: 'redisCacheDeploy'
+  params: {
+    longName: longName
+  }  
+}
+
 output subscriptionId string = subscription().subscriptionId
 output resourceGroupName string = resourceGroup().name
 output serviceBusName string = serviceBusModule.outputs.serviceBusName
