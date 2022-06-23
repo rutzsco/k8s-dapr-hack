@@ -12,13 +12,12 @@ GET {{baseUrl}}/status
 ###
 
 // Status Dapr
-GET {{baseUrl}}/v1.0/invoke/trafficcontrolservice/method/status
+GET {{baseUrlDapr}}/v1.0/invoke/trafficcontrolservice/method/status
 
 ###
 
 // Status Dapr
-GET {{baseUrl}}/v1.0/healthz
-
+GET {{baseUrlDapr}}/v1.0/healthz
 
 ###
 
