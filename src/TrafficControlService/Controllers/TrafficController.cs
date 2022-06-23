@@ -53,8 +53,9 @@ namespace TrafficControlService.Controllers
 
                 return Ok();
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "Error occurred while processing ENTRY");
                 return StatusCode(500);
             }
         }
@@ -96,7 +97,7 @@ namespace TrafficControlService.Controllers
                     };
 
                     // publish speedingviolation
-                    var message = JsonContent.Create<SpeedingViolation>(speedingViolation);
+                    //var message = JsonContent.Create<SpeedingViolation>(speedingViolation);
                     //await _httpClient.PostAsync("http://localhost:6001/collectfine", message);
                     //await _httpClient.PostAsync("http://localhost:3600/v1.0/publish/pubsub/collectfine", message);
 
@@ -104,6 +105,7 @@ namespace TrafficControlService.Controllers
                     await daprClient.PublishEventAsync("pubsub", "collectfine", speedingViolation);
                 }
 
+                _logger.LogInformation($"Processed vehicle with license-number {vehicleState.LicenseNumber}.");
                 return Ok();
             }
             catch(Exception ex)
