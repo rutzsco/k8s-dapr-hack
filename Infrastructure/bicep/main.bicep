@@ -24,11 +24,12 @@ module logicAppModule 'logicApp.bicep' = {
   }  
 }
 
-module mqttModule 'mqtt.bicep' = {
-  name: 'mqttDeploy'
+// IotHub
+module iothub 'iot-hub.bicep' = {
+  name: 'iothub'
   params: {
     longName: longName
-  }  
+  }
 }
 
 output subscriptionId string = subscription().subscriptionId
