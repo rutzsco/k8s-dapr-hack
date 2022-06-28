@@ -1,0 +1,20 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: entrycam
+spec:
+  type: bindings.azure.eventhubs
+  version: v1
+  metadata:
+  - name: connectionString
+    value: "TBD"
+  - name: consumerGroup
+    value: "trafficcontrolservice"
+  - name: storageAccountName
+    value: "TBD"
+  - name: storageAccountKey
+    value: "TBD"
+  - name: storageContainerName
+    value: "trafficcontrol-entrycam"
+scopes:
+- trafficcontrolservice

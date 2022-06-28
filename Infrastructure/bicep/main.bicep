@@ -32,6 +32,13 @@ module iothub 'iot-hub.bicep' = {
   }
 }
 
+module storageAccountModule 'storage.bicep' = {
+  name: 'storageAccountDeploy'
+  params: {
+    longName: longName
+  }  
+}
+
 output subscriptionId string = subscription().subscriptionId
 output resourceGroupName string = resourceGroup().name
 output serviceBusName string = serviceBusModule.outputs.serviceBusName
