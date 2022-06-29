@@ -1,0 +1,37 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - src/Simulation/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  rootDirectory: 'src/Simulation'
+  dockerRegistryServiceConnection: '27c27f09-dfdb-4663-a63c-6bc9854349c9'
+  dockerImageRepository: 'dapr-hack/simulationservice'
+  dockerFilePath: '$(Build.SourcesDirectory)/$(rootDirectory)/Dockerfile'
+  dockerImageTag: '$(Build.BuildNumber)'
+
+steps:
+
+- task: Docker@2
+  displayName: 'Container - Build and push'
+  inputs:
+    containerRegistry: '$(dockerRegistryServiceConnection)'
+    repository: '$(dockerImageRepository)'
+    command: 'buildAndPush'
+    Dockerfile: '$(dockerFilePath)'
+    buildContext: '$(Build.SourcesDirectory)/$(rootDirectory)/'
+    tags: |
+      $(dockerImageTag)
+      latest
+      
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.SourcesDirectory)/$(rootDirectory)/deploy/'
+    artifact: 'Deploy'
+    publishLocation: 'pipeline'

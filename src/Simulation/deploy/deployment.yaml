@@ -1,0 +1,32 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simulationservice
+  labels:
+    app: simulationservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simulationservice
+  template:
+    metadata:
+      labels:
+        app: simulationservice
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: simulationservice
+        image: rutzscocr.azurecr.io/dapr-hack/simulationservice:latest
+        ports:
+        - containerPort: 6000
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 1000m
+            memory: 200Mi
