@@ -18,12 +18,12 @@ namespace TrafficControlService.Controllers
     {
         private readonly HttpClient _httpClient;
         private readonly IVehicleStateRepository _vehicleStateRepository;
-        private readonly ILogger<TrafficController> _logger;
+        private readonly ILogger _logger;
         private readonly ISpeedingViolationCalculator _speedingViolationCalculator;
         private readonly string _roadId;
 
         public TrafficController(
-            ILogger<TrafficController> logger,
+            ILogger logger,
             HttpClient httpClient,
             IVehicleStateRepository vehicleStateRepository,
             ISpeedingViolationCalculator speedingViolationCalculator)
@@ -65,6 +65,9 @@ namespace TrafficControlService.Controllers
         {
             try
             {
+                // log exit
+                _logger.LogInformation($"EXIT detected in lane {msg.Lane} at {msg.Timestamp.ToString("hh:mm:ss")} of vehicle with license-number: {msg.LicenseNumber}.");
+
                 if (daprClient == null)
                     throw new ArgumentOutOfRangeException("daprClient", "DaprClient is null.");
 
@@ -72,11 +75,9 @@ namespace TrafficControlService.Controllers
                 var vehicleState = await _vehicleStateRepository.GetVehicleStateAsync(msg.LicenseNumber);
                 if (vehicleState == null)
                 {
+                    _logger.LogInformation($"EXIT NOT_FOUND - vehicle with license-number; {msg.LicenseNumber}.");
                     return NotFound();
                 }
-
-                // log exit
-                _logger.LogInformation($"EXIT detected in lane {msg.Lane} at {msg.Timestamp.ToString("hh:mm:ss")} of vehicle with license-number {msg.LicenseNumber}.");
 
                 // update state
                 vehicleState.ExitTimestamp = msg.Timestamp;
@@ -100,8 +101,6 @@ namespace TrafficControlService.Controllers
                     //var message = JsonContent.Create<SpeedingViolation>(speedingViolation);
                     //await _httpClient.PostAsync("http://localhost:6001/collectfine", message);
                     //await _httpClient.PostAsync("http://localhost:3600/v1.0/publish/pubsub/collectfine", message);
-
-
                     await daprClient.PublishEventAsync("pubsub", "collectfine", speedingViolation);
                 }
 
@@ -111,7 +110,7 @@ namespace TrafficControlService.Controllers
             catch(Exception ex)
             {
                 _logger.LogError($"An error occured - {ex.Message} - {ex.StackTrace}", ex);
-                throw;
+                return StatusCode(500);
             }
         }
     }
