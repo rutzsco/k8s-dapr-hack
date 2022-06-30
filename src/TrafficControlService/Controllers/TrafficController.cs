@@ -23,7 +23,7 @@ namespace TrafficControlService.Controllers
         private readonly string _roadId;
 
         public TrafficController(
-            ILogger logger,
+            ILogger<TrafficController> logger,
             HttpClient httpClient,
             IVehicleStateRepository vehicleStateRepository,
             ISpeedingViolationCalculator speedingViolationCalculator)
