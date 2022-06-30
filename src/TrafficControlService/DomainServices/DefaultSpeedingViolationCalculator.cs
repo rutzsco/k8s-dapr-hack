@@ -21,7 +21,17 @@ namespace TrafficControlService.DomainServices
         {
             double elapsedMinutes = exitTimestamp.Subtract(entryTimestamp).TotalSeconds; // 1 sec. == 1 min. in simulation
             double avgSpeedInKmh = Math.Round((_sectionLengthInKm / elapsedMinutes) * 60);
-            int violation = Convert.ToInt32(avgSpeedInKmh - _maxAllowedSpeedInKmh - _legalCorrectionInKmh);
+
+            Console.WriteLine($"{avgSpeedInKmh}{_maxAllowedSpeedInKmh}{_legalCorrectionInKmh}");
+
+            int violation = 10;
+            try
+            {
+                violation = Convert.ToInt32(avgSpeedInKmh - _maxAllowedSpeedInKmh - _legalCorrectionInKmh);
+            }
+            catch (Exception)
+            { }
+                
             return violation;
         }
 
