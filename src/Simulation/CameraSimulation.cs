@@ -8,7 +8,7 @@ public class CameraSimulation
     private int _minEntryDelayInMS = 50;
     private int _maxEntryDelayInMS = 5000;
     private int _minExitDelayInS = 4;
-    private int _maxExitDelayInS = 10;
+    private int _maxExitDelayInS = 12;
 
     public CameraSimulation(int camNumber, ITrafficControlService trafficControlService)
     {
