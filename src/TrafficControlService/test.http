@@ -1,10 +1,10 @@
 // K8 Dapr Endpoint 
-@baseUrlDapr =  http://20.85.253.155
+@baseUrlDapr =  http://20.81.59.37
 
 //@baseUrl =  http://127.0.0.1:6000
 
 // K8 Direct Endpoint
-@baseUrl =  http://20.237.16.204
+@baseUrl =  http://20.81.57.95
 
 // Status
 GET {{baseUrl}}/status
@@ -39,4 +39,4 @@ Content-Type: application/json
 
 ###
 
-GET {{baseUrlDapr}}/v1.0/secrets/secret-store/dapr-traffic-control
+GET {{baseUrlDapr}}/v1.0/secrets/secret-store/dapr-traffic-control-iothub

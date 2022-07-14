@@ -76,7 +76,7 @@ namespace TrafficControlService.Controllers
                 if (vehicleState == null)
                 {
                     _logger.LogInformation($"EXIT NOT_FOUND - vehicle with license-number; {msg.LicenseNumber}.");
-                    return NotFound();
+                    return Ok();
                 }
 
                 // update state
