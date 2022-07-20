@@ -18,10 +18,10 @@ namespace FineCollectionService.Proxies
         public async Task<VehicleInfo> GetVehicleInfo(string licenseNumber)
         {
             //var url = "http://localhost:6002/vehicleinfo/{licenseNumber";
-            var url = $"http://localhost:3601/v1.0/invoke/vehicleregistrationservice/method/vehicleinfo/{licenseNumber}";
+            //var url = $"http://localhost:3601/v1.0/invoke/vehicleregistrationservice/method/vehicleinfo/{licenseNumber}";
             //return await _httpClient.GetFromJsonAsync<VehicleInfo>(url);
 
-            var request = _daprClient.CreateInvokeMethodRequest(HttpMethod.Get, $"vehicleregistrationservice", "vehicleinfo/{licenseNumber}");
+            var request = _daprClient.CreateInvokeMethodRequest(HttpMethod.Get, $"vehicleregistrationservice", $"vehicleinfo/{licenseNumber}");
             var result = await _daprClient.InvokeMethodAsync<VehicleInfo>(request);
             return result;
         }       
