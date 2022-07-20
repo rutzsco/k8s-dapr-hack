@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Dapr.AspNetCore" Version="1.7.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
   </ItemGroup>
 
 </Project>

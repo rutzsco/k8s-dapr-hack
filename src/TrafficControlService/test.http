@@ -33,7 +33,7 @@ Content-Type: application/json
 POST {{baseUrl}}/exitcam
 Content-Type: application/json
 
-{ "lane": 1, "licenseNumber": "XT-346-Y", "timestamp": "2020-09-10T10:38:52" }
+{ "lane": 1, "licenseNumber": "XT-346-Y", "timestamp": "2020-09-10T10:38:50" }
 
 
 
