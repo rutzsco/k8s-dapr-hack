@@ -9,7 +9,7 @@
 
 ## With Dapr Building Blocks in Azure
 
-![image](dapr-traffic-control.png)
+![image](traffic-control-azure.png)
 
 ## Demonstrations
 
