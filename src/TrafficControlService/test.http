@@ -25,7 +25,7 @@ GET {{baseUrlDapr}}/v1.0/healthz
 POST {{baseUrl}}/entrycam
 Content-Type: application/json
 
-{ "lane": 1, "licenseNumber": "XT-346-Y", "timestamp": "2022-07-20T10:38:47" }
+{ "lane": 1, "licenseNumber": "XT-346-YZ", "timestamp": "2022-07-20T10:38:47" }
 
 ###
 
@@ -33,7 +33,7 @@ Content-Type: application/json
 POST {{baseUrl}}/exitcam
 Content-Type: application/json
 
-{ "lane": 1, "licenseNumber": "XT-346-Y", "timestamp": "2022-07-20T10:38:52" }
+{ "lane": 1, "licenseNumber": "XT-346-YZ", "timestamp": "2022-07-20T10:38:50" }
 
 
 

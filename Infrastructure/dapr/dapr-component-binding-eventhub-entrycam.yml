@@ -1,0 +1,23 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: entrycam
+  namespace: dapr-traffic-control
+spec:
+  type: bindings.azure.eventhubs
+  version: v1
+  metadata:
+  - name: connectionString
+    value: "Endpoint=sb://iothub-ns-rutzsco-da-19950433-ff253a9c7c.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=UX87Wgu2tZdxzAzb4vq8vwS/Xd6CFsIjqxgbsdbju4o=;EntityPath=rutzsco-dapr-demo-ci"
+  - name: consumerGroup
+    value: "trafficcontrolservice"
+  - name: storageAccountName
+    value: "sarutzscodaprdemoci"
+  - name: storageAccountKey
+    value: "KJmbMNy9h0A1wenOmtwzJaB3zSI1+tV4nHndvwjzvZs6kVLSh9nkOtFjh3+pqkJ8Pz3PzhhG79e6+AStP9DykA=="
+  - name: storageContainerName
+    value: "trafficcontrol-entrycam"
+auth:
+  secretStore: secret-store
+scopes:
+- trafficcontrolservice
