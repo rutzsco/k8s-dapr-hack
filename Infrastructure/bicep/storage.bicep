@@ -1,7 +1,7 @@
 param longName string
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2021-04-01' = {
-  name: toLower('sa${replace(longName, '-', '')}')
+  name: toLower('${replace(longName, '-', '')}sa')
   location: resourceGroup().location
   sku: {
     name: 'Standard_LRS'
