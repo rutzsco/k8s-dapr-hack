@@ -11,7 +11,7 @@ pool:
 
 variables:
   rootDirectory: 'src/FineCollectionService'
-  dockerRegistryServiceConnection: '27c27f09-dfdb-4663-a63c-6bc9854349c9'
+  dockerRegistryServiceConnection: 'aefdd2ab-f2b0-4625-ace6-1625a6ed13ec'
   dockerImageRepository: 'dapr-hack/FineCollectionService'
   dockerFilePath: '$(Build.SourcesDirectory)/$(rootDirectory)/Dockerfile'
   dockerImageTag: '$(Build.BuildNumber)'
