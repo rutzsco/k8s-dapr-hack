@@ -9,7 +9,6 @@ trigger:
     
 variables:
   vmImageName: 'ubuntu-latest'
-
   azureServiceConnection: 'Demo Account'
   location: 'eastus'
   aksResourceGroupName: 'rutzsco-aks-001'
