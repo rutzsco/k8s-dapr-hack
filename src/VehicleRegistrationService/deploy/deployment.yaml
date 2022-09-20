@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
       - name: vehicleregistrationservice
-        image: rutzscocr.azurecr.io/dapr-hack/vehicleregistrationservice:latest
+        image: rutzscolabcr/dapr-hack/vehicleregistrationservice:latest
         ports:
         - containerPort: 6002
         imagePullPolicy: Always
