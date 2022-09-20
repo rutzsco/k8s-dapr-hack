@@ -9,7 +9,7 @@ spec:
   metadata:
   - name: connectionString
     secretKeyRef:
-      name: dapr-traffic-control
+      name: dapr-traffic-control-sb
       key:  servicebusconnectionstring
 auth:
   secretStore: secret-store

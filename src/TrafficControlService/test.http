@@ -4,7 +4,8 @@
 //@baseUrl =  http://127.0.0.1:6000
 
 // K8 Direct Endpoint
-@baseUrl =  http://20.81.57.95
+@baseUrl =  http://20.241.231.205
+@baseUrlDapr =  http://20.241.231.194
 
 // Status
 GET {{baseUrl}}/status
