@@ -27,6 +27,9 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az aks get-credentials -n $(aksClusterName) -g $(aksResourceGroupName)
+      kubectl create secret generic dapr-traffic-control-sb --from-literal='$(SERVICE_BUS_CONNECTION_STRING)''
+      kubectl create secret generic dapr-traffic-control-redis --from-literal=redisPassword='$(REDIS_PASSWORD)'
+      kubectl create secret generic dapr-traffic-control-iothub --from-literal=iothubconnectionstring='$(IOT_HUB_CONNECTION_STRING)'
       kubectl apply -f $(componentPath)/dapr-component-secrets.yml
       kubectl apply -f $(componentPath)/k8-secret-rbac.yml
       #kubectl apply -f $(componentPath)/build/dapr/dapr-component-binding-eventhub-entrycam.yml
