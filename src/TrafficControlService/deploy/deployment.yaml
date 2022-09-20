@@ -1,9 +1,9 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: trafficcontrolservice2
+  name: trafficcontrolservice-direct
   labels:
-    app: trafficcontrolservice2
+    app: trafficcontrolservice
 spec:
   type: LoadBalancer
   ports:
@@ -60,7 +60,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: trafficcontrolservice
-        image: rutzscocr.azurecr.io/dapr-hack/trafficcontrolservice:latest
+        image: rutzscolabcr.azurecr.io/dapr-hack/trafficcontrolservice:latest
         ports:
         - containerPort: 6000
         imagePullPolicy: Always
