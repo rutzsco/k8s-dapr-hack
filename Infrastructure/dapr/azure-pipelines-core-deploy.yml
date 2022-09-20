@@ -22,7 +22,7 @@ steps:
 - task: AzureCLI@2
   displayName: Deploy Dapr Components
   inputs:
-    azureSubscription: $(azureServiceConnection))
+    azureSubscription: $(azureServiceConnection)
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
