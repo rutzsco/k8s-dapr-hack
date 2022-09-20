@@ -4,8 +4,8 @@
 //@baseUrl =  http://127.0.0.1:6000
 
 // K8 Direct Endpoint
-@baseUrl =  http://20.241.231.205
-@baseUrlDapr =  http://20.241.231.194
+@baseUrl =  http://20.241.231.194
+@baseUrlDapr =  http://20.241.231.205
 
 // Status
 GET {{baseUrl}}/status
@@ -26,7 +26,7 @@ GET {{baseUrlDapr}}/v1.0/healthz
 POST {{baseUrl}}/entrycam
 Content-Type: application/json
 
-{ "lane": 1, "licenseNumber": "XT-346-YZ", "timestamp": "2022-07-20T10:38:47" }
+{ "lane": 1, "licenseNumber": "XT-346-YZ", "timestamp": "2022-09-20T10:38:47" }
 
 ###
 
@@ -34,7 +34,7 @@ Content-Type: application/json
 POST {{baseUrl}}/exitcam
 Content-Type: application/json
 
-{ "lane": 1, "licenseNumber": "XT-346-YZ", "timestamp": "2022-07-20T10:38:50" }
+{ "lane": 1, "licenseNumber": "XT-346-YZ", "timestamp": "2022-09-20T10:38:50" }
 
 
 
