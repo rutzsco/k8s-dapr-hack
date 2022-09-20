@@ -33,4 +33,4 @@ stages:
                 kubernetesServiceConnection: 'rutzsco-aks1'
                 namespace: 'dapr-traffic-control'
                 manifests: '$(Pipeline.Workspace)/build/Deploy/deployment.yaml'
-                containers: 'rutzscocr.azurecr.io/dapr-hack/finecollectionservice:$(resources.pipeline.build.runName)'
+                containers: 'rutzscolabcr.azurecr.io/dapr-hack/finecollectionservice:$(resources.pipeline.build.runName)'

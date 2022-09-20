@@ -1,0 +1,55 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: secret-store
+  namespace: dapr-traffic-control
+spec:
+  type: secretstores.kubernetes
+  version: v1
+  metadata:
+  - name: ""
+
+
+---
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: pubsub
+  namespace: dapr-traffic-control
+spec:
+  type: pubsub.azure.servicebus
+  version: v1
+  metadata:
+  - name: connectionString
+    secretKeyRef:
+      name: dapr-traffic-control
+      key:  servicebusconnectionstring
+auth:
+  secretStore: secret-store
+
+---
+apiVersion: dapr.io/v1alpha1
+kind: Subscription
+metadata:
+  name: collectfine-subscription
+  namespace: dapr-traffic-control
+spec:
+  topic: collectfine
+  route: /collectfine
+  pubsubname: pubsub
+scopes:
+- finecollectionservice
+
+---
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: sendmail
+spec:
+  type: bindings.http
+  version: v1
+  metadata:
+    - name: url
+      value: https://prod-32.eastus.logic.azure.com:443/workflows/9643a8726dd14fb59f020994d2c9e35d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ogRkLVfNsKhXfdyo_OxH4ds8Syc2GRibrl27q4GAtsk
+scopes:
+- finecollectionservice

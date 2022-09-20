@@ -5,7 +5,7 @@ trigger:
     - main
   paths:
     include:
-    - Infrastructure/*
+    - Infrastructure/bicep/*
     
 variables:
   vmImageName: 'ubuntu-latest'

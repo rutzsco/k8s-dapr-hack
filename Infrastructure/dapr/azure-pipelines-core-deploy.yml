@@ -1,0 +1,44 @@
+name: 0.1.$(Rev:r)
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - Infrastructure/dapr/*
+    
+variables:
+  vmImageName: 'ubuntu-latest'
+
+  azureServiceConnection: 'Demo Account'
+  location: 'eastus'
+  aksResourceGroupName: 'rutzsco-aks-001'
+  aksClusterName: 'aks-rutzsco-aks-001'
+
+pool:
+  vmImage: $(vmImageName)
+
+steps:
+
+- task: AzureCLI@2
+  displayName: Deploy Dapr Components
+  inputs:
+    azureSubscription: ${{ parameters.azureSubscription }}
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az aks get-credentials -n $(aksClusterName) -g $(aksResourceGroupName))
+      kubectl apply -f $(Pipeline.Workspace)/build/dapr/dapr-component-secrets.yml
+      #kubectl apply -f $(Pipeline.Workspace)/build/dapr/dapr-component-binding-eventhub-entrycam.yml
+      #kubectl apply -f $(Pipeline.Workspace)/build/dapr/dapr-component-binding-eventhub-exitcam.yml
+      #kubectl apply -f $(Pipeline.Workspace)/build/dapr/dapr-component-binding-http-mail.yml
+      #kubectl apply -f $(Pipeline.Workspace)/build/dapr/dapr-component-pubsub-servicebus.yml
+      #kubectl apply -f $(Pipeline.Workspace)/build/dapr/dapr-component-pubsub-subscription.yml
+      #kubectl apply -f $(Pipeline.Workspace)/build/dapr/dapr-component-state-redis.yml
+      
+
+      
+      
+
+      
+      
