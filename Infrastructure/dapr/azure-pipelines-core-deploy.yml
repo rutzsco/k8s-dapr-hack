@@ -27,6 +27,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az aks get-credentials -n $(aksClusterName) -g $(aksResourceGroupName)
+      kubectl config set-context --current --namespace=dapr-traffic-control
       kubectl create secret generic dapr-traffic-control-sb --from-literal=servicebusconnectionstring='$(SERVICE_BUS_CONNECTION_STRING)'
       kubectl create secret generic dapr-traffic-control-redis --from-literal=redisPassword='$(REDIS_PASSWORD)'
       kubectl create secret generic dapr-traffic-control-iothub --from-literal=iothubconnectionstring='$(IOT_HUB_CONNECTION_STRING)'
