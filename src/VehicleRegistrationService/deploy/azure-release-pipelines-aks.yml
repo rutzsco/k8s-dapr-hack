@@ -7,6 +7,7 @@ resources:
   
 variables:
   azureSubscription: 'Demo Account'
+  azureContainerRegistry: 'rutzscolabcr.azurecr.io'
 
 stages:
 
@@ -33,4 +34,4 @@ stages:
                 kubernetesServiceConnection: 'rutzsco-aks1'
                 namespace: 'dapr-traffic-control'
                 manifests: '$(Pipeline.Workspace)/build/Deploy/deployment.yaml'
-                containers: 'rutzscocr.azurecr.io/dapr-hack/vehicleregistrationservice:$(resources.pipeline.build.runName)'
+                containers: $(azureContainerRegistry)/dapr-hack/vehicleregistrationservice:$(resources.pipeline.build.runName)'
