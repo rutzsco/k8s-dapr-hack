@@ -7,6 +7,6 @@ spec:
   version: v1
   metadata:
     - name: url
-      value: https://prod-32.eastus.logic.azure.com:443/workflows/9643a8726dd14fb59f020994d2c9e35d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ogRkLVfNsKhXfdyo_OxH4ds8Syc2GRibrl27q4GAtsk
+      value: https://prod-69.eastus.logic.azure.com:443/workflows/165e6662059d4b13a8024b42969344f3/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=_l9nsSyjsqhZHNjPF1lu7KkgOAH22tAnFhHlIlvKosI
 scopes:
 - finecollectionservice
