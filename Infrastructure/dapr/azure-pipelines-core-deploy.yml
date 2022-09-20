@@ -26,8 +26,9 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
-      az aks get-credentials -n $(aksClusterName) -g $(aksResourceGroupName))
+      az aks get-credentials -n $(aksClusterName) -g $(aksResourceGroupName)
       kubectl apply -f $(Pipeline.Workspace)/build/dapr/dapr-component-secrets.yml
+      kubectl apply -f $(Pipeline.Workspace)/build/dapr/k8-secret-rbac.yml
       #kubectl apply -f $(Pipeline.Workspace)/build/dapr/dapr-component-binding-eventhub-entrycam.yml
       #kubectl apply -f $(Pipeline.Workspace)/build/dapr/dapr-component-binding-eventhub-exitcam.yml
       #kubectl apply -f $(Pipeline.Workspace)/build/dapr/dapr-component-binding-http-mail.yml
