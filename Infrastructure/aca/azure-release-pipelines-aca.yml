@@ -15,7 +15,7 @@ variables:
   appName: 'rutzsco-dapr-demo-aca'
   environment: 'rutzsco-dapr-demo-aca-ci'
   containerImage: 'rutzscolabcr.azurecr.io/dapr-hack/trafficcontrolservice:latest'
-  templateFile: 'Infrastructure/ACA/main.bicep'
+  templateFile: 'Infrastructure/aca/main.bicep'
   acrName: 'rutzscolabcr'
   acrUsername: 'rutzscolabcr'
 
