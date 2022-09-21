@@ -1,0 +1,47 @@
+name: 0.1.$(Rev:r)
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - Infrastructure/aca/*
+    
+variables:
+  vmImageName: 'ubuntu-latest'
+  azureServiceConnection: 'Demo Account'
+  resourceGroupName: 'rutzsco-dapr-demo'
+  location: 'eastus'
+  appName: 'rutzsco-dapr-demo-aca'
+  environment: 'rutzsco-dapr-demo-aca-ci'
+  containerImage: 'rutzscolabcr.azurecr.io/dapr-hack/trafficcontrolservice:latest'
+  templateFile: 'Infrastructure/ACA/main.bicep'
+  acrName: 'rutzscolabcr'
+  acrUsername: 'rutzscolabcr'
+
+stages:
+
+ - stage: CI
+   displayName: CI Stage 
+   variables:
+     kubernetesCluster: 'rutzsco-aks1'
+   jobs:
+   - deployment: Deploy
+     displayName: Deploy
+     environment: 'CI'
+     pool:
+        vmImage: 'ubuntu-latest'   
+      
+     strategy:
+        runOnce:
+          deploy:
+  
+            steps:
+            - task: AzureCLI@2
+              inputs:
+                azureSubscription: $(azureServiceConnection)
+                scriptType: bash
+                scriptLocation: inlineScript
+                inlineScript: |
+                  az group create --name $(resourceGroupName) --location $(location)  
+                  az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters appName=$(appName) envName=$(environment) containerImage=$(containerImage) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) > outputs.json
