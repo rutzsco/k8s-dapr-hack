@@ -39,7 +39,7 @@ resource daprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-03
       initTimeout: '5m'
       secrets: [
           {
-              name: 'redisPassword'
+              name: 'redispassword'
               value: redisPassword
           }
       ]
@@ -50,7 +50,7 @@ resource daprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-03
           }
           {
               name: 'redisPassword'
-              secretRef: 'redisPassword'
+              secretRef: 'redispassword'
           }
           {
               name: 'actorStateStore'
