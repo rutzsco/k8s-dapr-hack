@@ -23,23 +23,29 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
   location: location
   properties: {
     managedEnvironmentId: containerAppEnvironmentId
-    configuration: {  
+    configuration: {
       secrets: [
         {
-            name: 'acrpassword'
-            value: acrPassword
+          name: 'acrpassword'
+          value: acrPassword
         }
-    ]
-    registries: [
+      ]
+      registries: [
         {
-            server: '${acrName}.azurecr.io'
-            username: acrUsername
-            passwordSecretRef: 'acrpassword'
+          server: '${acrName}.azurecr.io'
+          username: acrUsername
+          passwordSecretRef: 'acrpassword'
         }
-    ]
+      ]
       ingress: {
         external: useExternalIngress
         targetPort: containerPort
+      }
+      dapr: {
+        enabled: true
+        appPort: containerPort
+        appId: name
+        appProtocol: 'http'
       }
     }
     template: {
@@ -49,10 +55,10 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
           name: name
           env: [
             {
-                name: 'APPLICATION_VERSION'
-                value: containerImageParts[1]
+              name: 'APPLICATION_VERSION'
+              value: containerImageParts[1]
             }
-        ]
+          ]
         }
       ]
       scale: {
