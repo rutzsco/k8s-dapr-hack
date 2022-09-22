@@ -1,6 +1,5 @@
 param location string = resourceGroup().location
 param envName string
-param appName string
 param vehicleRegistrationContainerImage string = 'rutzscolabcr.azurecr.io/dapr-hack/vehicleregistrationservice:latest'
 param fineCollectionServiceContainerImage string = 'rutzscolabcr.azurecr.io/dapr-hack/finecollectionservice:latest'
 param trafficControlServiceContainerImage string = 'rutzscolabcr.azurecr.io/dapr-hack/trafficcontrolservice:latest'
@@ -114,9 +113,9 @@ resource daprLogicAppEmailBinding 'Microsoft.App/managedEnvironments/daprCompone
 }
 
 module vehicleRegistrationService 'aca.bicep' = {
-  name: 'vehicleRegistrationService'
+  name: 'vehicleregistrationservice'
   params: {
-    name: 'vehicleRegistrationService'
+    name: 'vehicleregistrationservice'
     location: location
     containerAppEnvironmentId: containerAppEnvironment.outputs.id
     containerImage: vehicleRegistrationContainerImage
@@ -130,9 +129,9 @@ module vehicleRegistrationService 'aca.bicep' = {
 }
 
 module fineCollectionService 'aca.bicep' = {
-    name: 'fineCollectionService'
+    name: 'finecollectionservice'
     params: {
-      name: 'fineCollectionService'
+      name: 'finecollectionservice'
       location: location
       containerAppEnvironmentId: containerAppEnvironment.outputs.id
       containerImage: fineCollectionServiceContainerImage
@@ -146,9 +145,9 @@ module fineCollectionService 'aca.bicep' = {
   }
 
 module trafficControlService 'aca.bicep' = {
-    name: 'trafficControlService'
+    name: 'trafficcontrolservice'
     params: {
-      name: 'trafficControlService'
+      name: 'trafficcontrolservice'
       location: location
       containerAppEnvironmentId: containerAppEnvironment.outputs.id
       containerImage: trafficControlServiceContainerImage

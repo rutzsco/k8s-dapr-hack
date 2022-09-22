@@ -12,7 +12,6 @@ variables:
   azureServiceConnection: 'Demo Account'
   resourceGroupName: 'rutzsco-dapr-demo'
   location: 'eastus'
-  appName: 'rutzsco-dapr-demo-aca'
   environment: 'rutzsco-dapr-demo-aca-ci'
   containerImage: 'rutzscolabcr.azurecr.io/dapr-hack/vehicleregistrationservice:latest'
   templateFile: 'Infrastructure/aca/main.bicep'
@@ -31,4 +30,4 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az group create --name $(resourceGroupName) --location $(location)  
-      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters appName=$(appName) envName=$(environment) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) redisPassword=$(redisPassword) servicebusconnectionstring='$(servicebusconnectionstring)' logicAppEmailUrl=$(logicAppEmailUrl) > outputs.json
+      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters envName=$(environment) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) redisPassword=$(redisPassword) servicebusconnectionstring='$(servicebusconnectionstring)' logicAppEmailUrl=$(logicAppEmailUrl) > outputs.json
