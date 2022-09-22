@@ -117,7 +117,7 @@ resource daprLogicAppEmailBinding 'Microsoft.App/managedEnvironments/daprCompone
   }
 }
 
-module containerApp 'aca.bicep' = {
+module vehicleRegistrationService 'aca.bicep' = {
   name: appName
   params: {
     name: appName
@@ -126,11 +126,11 @@ module containerApp 'aca.bicep' = {
     containerImage: containerImage
     envVars: []
     useExternalIngress: true
-    containerPort: containerPort
+    containerPort: 6002
     acrPassword: acrPassword
     acrUsername: acrUsername
     acrName: acrName
   }
 }
 
-output fqdn string = containerApp.outputs.fqdn
+output fqdn string = vehicleRegistrationService.outputs.fqdn
