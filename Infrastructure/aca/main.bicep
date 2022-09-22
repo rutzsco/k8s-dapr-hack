@@ -1,8 +1,10 @@
 param location string = resourceGroup().location
 param envName string
 param appName string
-param containerImage string
-param containerPort int = 80
+param vehicleRegistrationContainerImage string = 'rutzscolabcr.azurecr.io/dapr-hack/vehicleregistrationservice:latest'
+param fineCollectionServiceContainerImage string = 'rutzscolabcr.azurecr.io/dapr-hack/finecollectionservice:latest'
+param trafficControlServiceContainerImage string = 'rutzscolabcr.azurecr.io/dapr-hack/trafficcontrolservice:latest'
+
 @secure()
 param acrPassword string
 param acrUsername string
@@ -118,12 +120,12 @@ resource daprLogicAppEmailBinding 'Microsoft.App/managedEnvironments/daprCompone
 }
 
 module vehicleRegistrationService 'aca.bicep' = {
-  name: appName
+  name: 'vehicleRegistrationService'
   params: {
-    name: appName
+    name: 'vehicleRegistrationService'
     location: location
     containerAppEnvironmentId: containerAppEnvironment.outputs.id
-    containerImage: containerImage
+    containerImage: vehicleRegistrationContainerImage
     envVars: []
     useExternalIngress: true
     containerPort: 6002
@@ -132,5 +134,37 @@ module vehicleRegistrationService 'aca.bicep' = {
     acrName: acrName
   }
 }
+
+module fineCollectionService 'aca.bicep' = {
+    name: 'fineCollectionService'
+    params: {
+      name: 'fineCollectionService'
+      location: location
+      containerAppEnvironmentId: containerAppEnvironment.outputs.id
+      containerImage: fineCollectionServiceContainerImage
+      envVars: []
+      useExternalIngress: true
+      containerPort:6001
+      acrPassword: acrPassword
+      acrUsername: acrUsername
+      acrName: acrName
+    }
+  }
+
+module trafficControlService 'aca.bicep' = {
+    name: 'trafficControlService'
+    params: {
+      name: 'trafficControlService'
+      location: location
+      containerAppEnvironmentId: containerAppEnvironment.outputs.id
+      containerImage: trafficControlServiceContainerImage
+      envVars: []
+      useExternalIngress: true
+      containerPort: 6000
+      acrPassword: acrPassword
+      acrUsername: acrUsername
+      acrName: acrName
+    }
+  }
 
 output fqdn string = vehicleRegistrationService.outputs.fqdn
