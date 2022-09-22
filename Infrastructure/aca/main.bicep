@@ -58,7 +58,7 @@ resource daprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-03
           }
           {
               name: 'enableTLS'
-              secretRef: 'true'
+              value: 'true'
           }
       ]
       scopes: [
