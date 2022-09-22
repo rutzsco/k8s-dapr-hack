@@ -11,6 +11,9 @@ param acrName string
 @secure()
 param redisPassword string
 
+@secure()
+param servicebusconnectionstring string
+
 module law 'log-analytics.bicep' = {
 	name: 'log-analytics-workspace'
 	params: {
@@ -30,10 +33,10 @@ module containerAppEnvironment 'aca-environment.bicep' = {
   }
 }
 
-resource daprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
-  name: '${envName}/state'
+resource daprStateStore 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
+  name: '${envName}/statestore'
   properties: {
-      componentType: 'state.azure.cosmosdb'
+      componentType: 'state.redis'
       version: 'v1'
       ignoreErrors: false
       initTimeout: '5m'
@@ -64,6 +67,28 @@ resource daprComponent 'Microsoft.App/managedEnvironments/daprComponents@2022-03
       scopes: [
         'trafficcontrolservice'
     ]
+  }
+}
+
+resource daprPubSub 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
+  name: '${envName}/pubsub'
+  properties: {
+      componentType: 'statestore'
+      version: 'v1'
+      ignoreErrors: false
+      initTimeout: '5m'
+      secrets: [
+          {
+              name: 'connectionString'
+              value: servicebusconnectionstring
+          }
+      ]
+      metadata: [
+          {
+              name: 'connectionString'
+              secretRef: 'servicebusconnectionstring'
+          }
+      ]
   }
 }
 
