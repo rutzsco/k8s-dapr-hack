@@ -14,6 +14,9 @@ param redisPassword string
 @secure()
 param servicebusconnectionstring string
 
+@secure()
+param logicAppEmailUrl string
+
 module law 'log-analytics.bicep' = {
 	name: 'log-analytics-workspace'
 	params: {
@@ -73,7 +76,7 @@ resource daprStateStore 'Microsoft.App/managedEnvironments/daprComponents@2022-0
 resource daprPubSub 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
   name: '${envName}/pubsub'
   properties: {
-      componentType: 'statestore'
+      componentType: 'pubsub.azure.servicebus'
       version: 'v1'
       ignoreErrors: false
       initTimeout: '5m'
@@ -87,6 +90,28 @@ resource daprPubSub 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01
           {
               name: 'connectionString'
               secretRef: 'servicebusconnectionstring'
+          }
+      ]
+  }
+}
+
+resource daprLogicAppEmailBinding 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
+  name: '${envName}/pubsub'
+  properties: {
+      componentType: 'bindings.http'
+      version: 'v1'
+      ignoreErrors: false
+      initTimeout: '5m'
+      secrets: [
+          {
+              name: 'connectionString'
+              value: servicebusconnectionstring
+          }
+      ]
+      metadata: [
+          {
+              name: 'url'
+              value: logicAppEmailUrl
           }
       ]
   }
