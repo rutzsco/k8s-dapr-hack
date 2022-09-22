@@ -31,4 +31,4 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az group create --name $(resourceGroupName) --location $(location)  
-      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters appName=$(appName) envName=$(environment) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) redisPassword=$(redisPassword) servicebusconnectionstring=$(servicebusconnectionstring) logicAppEmailUrl=$(logicAppEmailUrl) > outputs.json
+      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters appName=$(appName) envName=$(environment) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) redisPassword=$(redisPassword) servicebusconnectionstring='$(servicebusconnectionstring)' logicAppEmailUrl=$(logicAppEmailUrl) > outputs.json
