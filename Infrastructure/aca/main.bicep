@@ -98,18 +98,12 @@ resource daprPubSub 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01
 }
 
 resource daprLogicAppEmailBinding 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
-  name: '${envName}/pubsub'
+  name: '${envName}/sendmail'
   properties: {
       componentType: 'bindings.http'
       version: 'v1'
       ignoreErrors: false
       initTimeout: '5m'
-      secrets: [
-          {
-              name: 'connectionString'
-              value: servicebusconnectionstring
-          }
-      ]
       metadata: [
           {
               name: 'url'
