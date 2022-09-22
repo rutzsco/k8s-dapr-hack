@@ -15,7 +15,7 @@ variables:
   appName: 'rutzsco-dapr-demo-aca'
   environment: 'rutzsco-dapr-demo-aca-ci'
   containerImage: 'rutzscolabcr.azurecr.io/dapr-hack/trafficcontrolservice:latest'
-  templateFile: 'Infrastructure/aca/main.bicep'
+  templateFile: 'main.bicep'
   acrName: 'rutzscolabcr'
   acrUsername: 'rutzscolabcr'
 
@@ -37,10 +37,12 @@ stages:
             steps:
             - task: AzureCLI@2
               inputs:
-                azureSubscription: $(azureServiceConnection)
-                scriptType: bash
-                scriptLocation: inlineScript
+                azureSubscription: '$(azureServiceConnection)'
+                scriptType: 'bash'
+                scriptLocation: 'inlineScript'
+                workingDirectory: 'Infrastructure/aca'
                 inlineScript: |
                   ls
                   az group create --name $(resourceGroupName) --location $(location)  
                   az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters appName=$(appName) envName=$(environment) containerImage=$(containerImage) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) > outputs.json
+                
