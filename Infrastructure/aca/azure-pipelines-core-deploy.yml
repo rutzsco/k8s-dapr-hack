@@ -31,4 +31,4 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       az group create --name $(resourceGroupName) --location $(location)  
-      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters appName=$(appName) envName=$(environment) containerImage=$(containerImage) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) redisPassword=$(redisPassword) > outputs.json
+      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters appName=$(appName) envName=$(environment) containerImage=$(containerImage) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) redisPassword=$(redisPassword) servicebusconnectionstring=$(servicebusconnectionstring) > outputs.json
