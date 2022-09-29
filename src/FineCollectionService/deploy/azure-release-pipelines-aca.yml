@@ -6,17 +6,13 @@ resources:
     source: 'FineCollectionService - BUILD'
   
 variables:
-  vmImageName: 'ubuntu-latest'
-  azureServiceConnection: 'Demo Account'
-  resourceGroupName: 'rutzsco-dapr-demo'
-  location: 'eastus'
-  environment: 'rutzsco-dapr-demo-aca-ci'
-  containerImage: 'rutzscolabcr.azurecr.io/dapr-hack/vehicleregistrationservice:$(resources.pipeline.build.runName)'
-  templateFile: 'build/Infrastructure/aca/main.bicep'
-  acrName: 'rutzscolabcr'
-  acrUsername: 'rutzscolabcr'
+  - group: dapr-traffic-control-demo
+  - name: containerImage
+    value: '$(acrName).azurecr.io/dapr-hack/vehicleregistrationservice:$(resources.pipeline.build.runName)'
+  - name: templateFile
+    value: 'build/Infrastructure/aca/main.bicep'
 pool:
-  vmImage: $(vmImageName)
+  vmImage: 'ubuntu-latest'
 
 steps:
 
