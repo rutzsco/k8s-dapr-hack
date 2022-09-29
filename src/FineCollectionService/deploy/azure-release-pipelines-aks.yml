@@ -6,7 +6,7 @@ resources:
     source: 'FineCollectionService - BUILD'
   
 variables:
-  azureSubscription: 'Demo Account'
+  - group: dapr-traffic-control-demo
 
 stages:
 
