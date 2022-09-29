@@ -1,9 +1,11 @@
+@baseUrl =  https://vehicleregistrationservice.agreeableforest-837b7d25.eastus.azurecontainerapps.io
+@baseUrlAks = http://20.232.70.91
+
 // Get vehicle info by license-number
-GET http://127.0.0.1:6002/vehicleinfo/KZ-49-VX
+GET {{baseUrl}}/vehicleinfo/KZ-49-VX
 
 
 ###
 
 // Get vehicle info by license-number DAPR
-GET http://localhost:3601/v1.0/invoke/vehicleregistrationservice/method/vehicleinfo/KZ-49-VX
-
+GET {{baseUrlAks}}/v1.0/invoke/vehicleregistrationservice/method/vehicleinfo/KZ-49-VX

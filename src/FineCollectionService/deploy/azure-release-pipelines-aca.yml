@@ -1,0 +1,30 @@
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: build
+    source: 'FineCollectionService - BUILD'
+  
+variables:
+  vmImageName: 'ubuntu-latest'
+  azureServiceConnection: 'Demo Account'
+  resourceGroupName: 'rutzsco-dapr-demo'
+  location: 'eastus'
+  environment: 'rutzsco-dapr-demo-aca-ci'
+  containerImage: 'rutzscolabcr.azurecr.io/dapr-hack/vehicleregistrationservice:latest'
+  templateFile: 'build/Infrastructure/aca/main.bicep'
+  acrName: 'rutzscolabcr'
+  acrUsername: 'rutzscolabcr'
+pool:
+  vmImage: $(vmImageName)
+
+steps:
+
+- task: AzureCLI@2
+  displayName: Deploy FineCollectionService
+  inputs:
+    azureSubscription: $(azureServiceConnection)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters envName=$(environment) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) redisPassword=$(redisPassword) servicebusconnectionstring='$(servicebusconnectionstring)' logicAppEmailUrl='$(logicAppEmailUrl)' > outputs.json

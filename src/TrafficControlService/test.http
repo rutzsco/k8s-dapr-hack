@@ -1,11 +1,10 @@
 // K8 Dapr Endpoint 
 @baseUrlDapr =  http://20.81.59.37
-
-//@baseUrl =  http://127.0.0.1:6000
+@baseUrl =  https://trafficcontrolservice.agreeableforest-837b7d25.eastus.azurecontainerapps.io
 
 // K8 Direct Endpoint
-@baseUrl =  http://20.241.231.194
-@baseUrlDapr =  http://20.241.231.205
+#@baseUrl =  http://20.241.231.194
+#@baseUrlDapr =  http://20.241.231.205
 
 // Status
 GET {{baseUrl}}/status

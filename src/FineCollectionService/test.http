@@ -1,4 +1,4 @@
-@baseUrl =  https://localhost:44335
+@baseUrl =  https://finecollectionservice.agreeableforest-837b7d25.eastus.azurecontainerapps.io
 
 // Status
 GET {{baseUrl}}/status
