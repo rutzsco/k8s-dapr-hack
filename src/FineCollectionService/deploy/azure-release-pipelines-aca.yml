@@ -10,7 +10,7 @@ variables:
   - name: containerImage
     value: '$(acrName).azurecr.io/dapr-hack/vehicleregistrationservice:$(resources.pipeline.build.runName)'
   - name: templateFile
-    value: 'build/Infrastructure/aca/main.bicep'
+    value: 'build/deploy/main.bicep'
 pool:
   vmImage: 'ubuntu-latest'
 
