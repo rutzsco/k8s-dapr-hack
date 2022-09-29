@@ -1,5 +1,5 @@
 param location string = resourceGroup().location
-param fineCollectionServiceContainerImage string = 'rutzscolabcr.azurecr.io/dapr-hack/finecollectionservice:latest'
+param containerImage string = 'rutzscolabcr.azurecr.io/dapr-hack/finecollectionservice:latest'
 param envName string
 
 @secure()
@@ -18,7 +18,7 @@ module fineCollectionService 'aca.bicep' = {
     name: 'finecollectionservice'
     location: location
     containerAppEnvironmentId: containerAppEnvironment.id
-    containerImage: fineCollectionServiceContainerImage
+    containerImage: containerImage
     envVars: []
     useExternalIngress: true
     containerPort: 6001
