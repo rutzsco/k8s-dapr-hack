@@ -3,12 +3,12 @@ trigger: none
 resources:
   pipelines:
   - pipeline: build
-    source: 'FineCollectionService - BUILD'
+    source: 'TrafficControlService - BUILD'
   
 variables:
   - group: dapr-traffic-control-demo
   - name: containerImage
-    value: '$(acrName).azurecr.io/dapr-hack/finecollectionservice:$(resources.pipeline.build.runName)'
+    value: '$(acrName).azurecr.io/dapr-hack/trafficcontrolservice:$(resources.pipeline.build.runName)'
   - name: templateFile
     value: 'build/deploy/main.bicep'
 pool:
@@ -17,7 +17,7 @@ pool:
 steps:
 
 - task: AzureCLI@2
-  displayName: Deploy FineCollectionService
+  displayName: Deploy TrafficControlService
   inputs:
     azureSubscription: $(azureServiceConnection)
     scriptType: bash
