@@ -1,9 +1,15 @@
 parameters: 
-  appName: ''
-  environment: ''
-  azureSubscription: ''
-  location: ''
-  resourceGroupName: ''
+- name: appName
+  default: ''
+- name: environment
+  default: ''
+- name: azureSubscription
+  default: ''
+- name: resourceGroupName
+  default: ''
+- name: location
+  default: ''
+
 
 stages:
   - stage: ${{ parameters.environment }}
