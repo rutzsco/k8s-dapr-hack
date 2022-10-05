@@ -32,6 +32,8 @@ stages:
                 ls
                 echo "LocalPath=$(Build.Repository.LocalPath)"
                 echo $(Build.Repository.LocalPath)
+                cd $(Build.Repository.LocalPath)
+                ls
               displayName: 'Display Variables'
               continueOnError: true
 
