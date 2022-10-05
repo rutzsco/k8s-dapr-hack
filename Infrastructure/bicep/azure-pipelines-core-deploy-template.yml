@@ -30,8 +30,9 @@ stages:
             steps:
             - bash: |
                 ls
-                echo "LocalPath=$(Build.Repository.LocalPath)"
                 echo $(Build.Repository.LocalPath)
+                echo $(Build.SourcesDirectory)
+                echo $(Build.SourceVersionMessage)
                 cd $(Build.Repository.LocalPath)
                 ls
               displayName: 'Display Variables'
