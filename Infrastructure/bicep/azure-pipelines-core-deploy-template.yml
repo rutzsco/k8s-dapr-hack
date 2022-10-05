@@ -27,6 +27,5 @@ stages:
                 scriptType: bash
                 scriptLocation: inlineScript
                 inlineScript: |
-                  ls
                   az group create --location ${{ parameters.location }} --name ${{ parameters.resourceGroupName }}
                   az deployment group create --resource-group ${{ parameters.resourceGroupName }} --template-file 'Infrastructure/bicep/main.bicep' --parameters appName=${{ parameters.appName }} environment=${{ parameters.environment }} > outputs.json
