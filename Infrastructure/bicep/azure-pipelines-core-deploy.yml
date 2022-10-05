@@ -16,14 +16,14 @@ stages:
   parameters:
     appName: 'rutzsco-dapr-demo'
     environment: 'aks'
-    azureSubscription: $(azureSubscription)
+    azureSubscription: $(azureServiceConnection)
     location: 'eastus'
     resourceGroupName: rutzsco-dapr-demo-aks'
 - template: azure-pipelines-core-deploy-template.yml
   parameters:
     appName: 'rutzsco-dapr-demo'
     environment: 'aca'
-    azureSubscription: $(azureSubscription)
+    azureSubscription: $(azureServiceConnection)
     location: 'eastus'
     resourceGroupName: 'rutzsco-dapr-demo-aca'
       
