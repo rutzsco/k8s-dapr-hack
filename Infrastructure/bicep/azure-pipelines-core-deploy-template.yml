@@ -28,6 +28,13 @@ stages:
           deploy:
   
             steps:
+            - bash: |
+                ls
+                echo "LocalPath=$(Build.Repository.LocalPath)"
+                echo $(Build.Repository.LocalPath)
+              displayName: 'Display Variables'
+              continueOnError: true
+
             - task: AzureCLI@2
               inputs:
                 azureSubscription: ${{ parameters.azureSubscription }}
