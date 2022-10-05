@@ -9,26 +9,29 @@ trigger:
     
 variables:
   vmImageName: 'ubuntu-latest'
-
   azureServiceConnection: 'Demo Account'
-  resourceGroupName: 'rutzsco-dapr-demo'
-  location: 'eastus'
-  appName: 'rutzsco-dapr-demo'
-  environment: 'ci'
-  templateFile: 'Infrastructure/bicep/main.bicep'
 
-pool:
-  vmImage: $(vmImageName)
+stages:
+  - stage: AKS
+    displayName: AKS Deploy
+    jobs:
+    - template: azure-pipelines-core-deploy-template.yml
+      parameters:
+        appName: 'rutzsco-dapr-demo'
+        environment: 'aks'
+        azureSubscription: $(azureSubscription)
+        location: 'eastus'
+        resourceGroupName: rutzsco-dapr-demo-aks'
 
-steps:
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: $(azureServiceConnection)
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
-      az group create --name $(resourceGroupName) --location $(location)  
-      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters appName=$(appName) environment=$(environment) > outputs.json
-
+  - stage: ACA
+    displayName: ACA Deploy
+    jobs:
+    - template: azure-pipelines-core-deploy-template.yml
+      parameters:
+        appName: 'rutzsco-dapr-demo'
+        environment: 'aca'
+        azureSubscription: $(azureSubscription)
+        location: 'eastus'
+        resourceGroupName: 'rutzsco-dapr-demo-aca'
       
       
