@@ -12,26 +12,19 @@ variables:
   azureServiceConnection: 'Demo Account'
 
 stages:
-  - stage: AKS
-    displayName: AKS Deploy
-    jobs:
-    - template: azure-pipelines-core-deploy-template.yml
-      parameters:
-        appName: 'rutzsco-dapr-demo'
-        environment: 'aks'
-        azureSubscription: $(azureSubscription)
-        location: 'eastus'
-        resourceGroupName: rutzsco-dapr-demo-aks'
-
-  - stage: ACA
-    displayName: ACA Deploy
-    jobs:
-    - template: azure-pipelines-core-deploy-template.yml
-      parameters:
-        appName: 'rutzsco-dapr-demo'
-        environment: 'aca'
-        azureSubscription: $(azureSubscription)
-        location: 'eastus'
-        resourceGroupName: 'rutzsco-dapr-demo-aca'
+- template: azure-release-pipelines-stage-template.yml
+  parameters:
+    appName: 'rutzsco-dapr-demo'
+    environment: 'aks'
+    azureSubscription: $(azureSubscription)
+    location: 'eastus'
+    resourceGroupName: rutzsco-dapr-demo-aks'
+- template: azure-release-pipelines-stage-template.yml
+  parameters:
+    appName: 'rutzsco-dapr-demo'
+    environment: 'aca'
+    azureSubscription: $(azureSubscription)
+    location: 'eastus'
+    resourceGroupName: 'rutzsco-dapr-demo-aca'
       
       

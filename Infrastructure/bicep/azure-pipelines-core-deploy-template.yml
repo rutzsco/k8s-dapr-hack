@@ -2,22 +2,30 @@ parameters:
   appName: ''
   environment: ''
   azureSubscription: ''
-  environment: ''
   location: ''
   resourceGroupName: ''
 
-variables:
-  templateFile: 'Infrastructure/bicep/main.bicep'
+stages:
+  - stage: ${{ parameters.environment }}
+    displayName: ${{ parameters.environment }}
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: ${{ parameters.azureSubscription }}
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
-      az group create --name ${{ parameters.resourceGroupName }} --location ${{ parameters.location }} 
-      az deployment group create --resource-group ${{ parameters.resourceGroupName }} --template-file $(templateFile) --parameters appName=${{ parameters.appName }} environment=${{ parameters.environment }} > outputs.json
+    jobs:
+    - deployment: Deploy
+      displayName: Deploy
+      environment: ${{ parameters.environment }}
+      pool:
+        vmImage: 'ubuntu-latest'
+  
+      strategy:
+        runOnce:
+          deploy:
+  
+            steps:
+            - task: AzureCLI@2
+              inputs:
+              azureSubscription: ${{ parameters.azureSubscription }}
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                az group create --name ${{ parameters.resourceGroupName }} --location ${{ parameters.location }} 
+                az deployment group create --resource-group ${{ parameters.resourceGroupName }} --template-file 'Infrastructure/bicep/main.bicep' --parameters appName=${{ parameters.appName }} environment=${{ parameters.environment }} > outputs.json
