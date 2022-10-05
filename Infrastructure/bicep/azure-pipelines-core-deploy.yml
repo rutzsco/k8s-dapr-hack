@@ -12,14 +12,14 @@ variables:
   azureServiceConnection: 'Demo Account'
 
 stages:
-- template: azure-release-pipelines-stage-template.yml
+- template: azure-pipelines-core-deploy-template.yml
   parameters:
     appName: 'rutzsco-dapr-demo'
     environment: 'aks'
     azureSubscription: $(azureSubscription)
     location: 'eastus'
     resourceGroupName: rutzsco-dapr-demo-aks'
-- template: azure-release-pipelines-stage-template.yml
+- template: azure-pipelines-core-deploy-template.yml
   parameters:
     appName: 'rutzsco-dapr-demo'
     environment: 'aca'
