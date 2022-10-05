@@ -9,7 +9,8 @@ parameters:
   default: ''
 - name: location
   default: ''
-
+- name: templateFile
+  default: ''
 
 stages:
   - stage: ${{ parameters.environment }}
@@ -34,4 +35,4 @@ stages:
                 scriptLocation: inlineScript
                 inlineScript: |
                   az group create --location ${{ parameters.location }} --name ${{ parameters.resourceGroupName }}
-                  az deployment group create --resource-group ${{ parameters.resourceGroupName }} --template-file 'Infrastructure/bicep/main.bicep' --parameters appName=${{ parameters.appName }} environment=${{ parameters.environment }} > outputs.json
+                  az deployment group create --resource-group ${{ parameters.resourceGroupName }} --template-file ${{ parameters.templateFile }}--parameters appName=${{ parameters.appName }} environment=${{ parameters.environment }} > outputs.json
