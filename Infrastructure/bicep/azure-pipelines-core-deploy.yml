@@ -18,7 +18,7 @@ stages:
     environment: 'aks'
     azureSubscription: $(azureServiceConnection)
     location: 'eastus'
-    resourceGroupName: rutzsco-dapr-demo-aks'
+    resourceGroupName: 'rutzsco-dapr-demo-aks'
     templateFile: '$(Pipeline.Workspace)/s/Infrastructure/bicep/main.bicep'
 - template: azure-pipelines-core-deploy-template.yml
   parameters:
