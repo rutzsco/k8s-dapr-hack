@@ -16,26 +16,25 @@ variables:
   azureServiceConnection: 'Demo Account'
 
 stages:
- - stage: CreateInfrastructure${{ environmentName }}
-   displayName: ${{ environmentName }} Infrastructure
-   jobs:
-   - template: azure-pipelines-core-deploy-template.yml
-     parameters:
-       appName: 'rutzsco-dapr-demo'
-       environment: 'aks'
-       azureSubscription: $(azureServiceConnection)
-       location: 'eastus'
-       resourceGroupName: 'rutzsco-dapr-demo-aks'
-       templateFile: '$(Build.Repository.LocalPath)/Infrastructure/bicep/main.bicep'
- - stage: CreateInfrastructure${{ environmentName }}
+  - stage: CreateInfrastructure${{ environmentName }}
     displayName: ${{ environmentName }} Infrastructure
     jobs:
     - template: azure-pipelines-core-deploy-template.yml
       parameters:
-       appName: 'rutzsco-dapr-demo'
-       environment: 'aca'
-       azureSubscription: $(azureServiceConnection)
-       location: 'eastus'
-       resourceGroupName: 'rutzsco-dapr-demo-aca'
-       templateFile: '$(Build.Repository.LocalPath)/Infrastructure/bicep/main.bicep'
-      
+        appName: 'rutzsco-dapr-demo'
+        environment: 'aks'
+        azureSubscription: $(azureServiceConnection)
+        location: 'eastus'
+        resourceGroupName: 'rutzsco-dapr-demo-aks'
+        templateFile: '$(Build.Repository.LocalPath)/Infrastructure/bicep/main.bicep'
+  - stage: CreateInfrastructure${{ environmentName }}
+    displayName: ${{ environmentName }} Infrastructure
+    jobs:
+    - template: azure-pipelines-core-deploy-template.yml
+      parameters:
+        appName: 'rutzsco-dapr-demo'
+        environment: 'aca'
+        azureSubscription: $(azureServiceConnection)
+        location: 'eastus'
+        resourceGroupName: 'rutzsco-dapr-demo-aca'
+        templateFile: '$(Build.Repository.LocalPath)/Infrastructure/bicep/main.bicep'
