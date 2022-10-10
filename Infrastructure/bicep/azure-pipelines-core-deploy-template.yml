@@ -1,4 +1,6 @@
 parameters: 
+- name: stageName
+  default: ''
 - name: appName
   default: ''
 - name: environment
@@ -13,21 +15,26 @@ parameters:
   default: ''
 
 # ----------------------------------------------------------------------------------------------------
-jobs:
-- deployment: DeployResources
-  displayName: Initialize Deploy Resources
-  environment: AKS
+stages:
+  - stage: ${{ parameters.stageName }}
+    displayName: ${{ parameters.stageName }}
 
-- job: DeployResourcesJob
-  displayName: Deploy Resources
-  steps:
-
-  - task: AzureCLI@2
-     displayName: 'Create Resource Group'
-     inputs:
-       azureSubscription: ${{ parameters.azureSubscription }}
-       scriptType: bash
-       scriptLocation: inlineScript
-       inlineScript: az group create --name ${{ parameters.resourceGroupName }} --location ${{ parameters.location }}
-
-
+    jobs:
+    - deployment: Deploy
+      displayName: Deploy
+      environment: ${{ parameters.environment }}
+      pool:
+        vmImage: 'ubuntu-latest'
+  
+      strategy:
+        runOnce:
+          deploy:
+  
+            steps:           
+            - task: AzureCLI@2
+              displayName: 'Create Resource Group'
+              inputs:
+                azureSubscription: ${{ parameters.azureSubscription }}
+                scriptType: bash
+                scriptLocation: inlineScript
+                inlineScript: az group create --name ${{ parameters.resourceGroupName }} --location ${{ parameters.location }}
