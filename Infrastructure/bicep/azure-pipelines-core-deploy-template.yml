@@ -20,16 +20,8 @@ jobs:
 
 - job: DeployResourcesJob
   displayName: Deploy Resources
-  variables:
-  - name: environment
-    value: ${{ parameters.environment }}
-  - name: environmentLower
-    value: ${{ lower(parameters.environment) }}
-  - name: templateFile
-    value: '$(Pipeline.Workspace)/s/Infrastructure/bicep/main.bicep'
-
   steps:
-  
+
   - task: AzureCLI@2
      displayName: 'Create Resource Group'
      inputs:
