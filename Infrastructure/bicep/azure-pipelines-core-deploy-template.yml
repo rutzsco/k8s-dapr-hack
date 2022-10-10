@@ -16,7 +16,7 @@ parameters:
 jobs:
 - deployment: DeployResources
   displayName: Initialize Deploy Resources
-  environment: ${{ parameters.environment }}
+  environment: AKS
 
 - job: DeployResourcesJob
   displayName: Deploy Resources
