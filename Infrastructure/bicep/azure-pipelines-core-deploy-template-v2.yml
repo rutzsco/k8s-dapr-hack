@@ -1,0 +1,58 @@
+parameters: 
+- name: appName
+  default: ''
+- name: environment
+  default: ''
+- name: azureSubscription
+  default: ''
+- name: resourceGroupName
+  default: ''
+- name: location
+  default: ''
+- name: templateFile
+  default: ''
+
+jobs:
+- deployment: DeployResources
+  displayName: Initialize Deploy Resources
+  environment: ${{ parameters.environment }}
+
+- job: DeployResourcesJob
+  displayName: Deploy Resources
+  variables:
+  - name: environment
+    value: ${{ parameters.environment }}
+  - name: environmentLower
+    value: ${{ lower(parameters.environment) }}
+  - name: templateFile
+    value: '$(Pipeline.Workspace)/s/Infrastructure/bicep/main.bicep'
+
+  steps:
+  - bash: |
+      ls
+      echo $(Build.Repository.LocalPath)
+      echo $(Build.SourcesDirectory)
+      echo $(Build.SourceVersionMessage)
+
+      cd $(Build.Repository.LocalPath)
+      ls
+    displayName: 'Display Variables'
+    continueOnError: true
+
+  - task: AzureCLI@2
+    displayName: 'Create Resource Group'
+    inputs:
+      azureSubscription: $(azureSubscription)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: az group create --name $(resourceGroupName) --location $(region)
+
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: ${{ parameters.azureSubscription }}
+      scriptType: bash
+      scriptLocation: inlineScript
+       inlineScript: |
+        az group create --name ${{ parameters.resourceGroupName }} --location ${{ parameters.location }} 
+        az deployment group create --resource-group ${{ parameters.resourceGroupName }} --template-file ${{ parameters.templateFile }} --parameters appName=${{ parameters.appName }} environment=${{ parameters.environment }} > outputs.json
+
