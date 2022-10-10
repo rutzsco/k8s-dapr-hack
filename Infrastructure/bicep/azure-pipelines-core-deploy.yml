@@ -16,8 +16,8 @@ variables:
   azureServiceConnection: 'Demo Account'
 
 stages:
-  - stage: CreateInfrastructure${{ environmentName }}
-    displayName: ${{ environmentName }} Infrastructure
+  - stage: AKS
+    displayName: Deploy AKS
     jobs:
     - template: azure-pipelines-core-deploy-template.yml
       parameters:
@@ -27,8 +27,8 @@ stages:
         location: 'eastus'
         resourceGroupName: 'rutzsco-dapr-demo-aks'
         templateFile: '$(Build.Repository.LocalPath)/Infrastructure/bicep/main.bicep'
-  - stage: CreateInfrastructure${{ environmentName }}
-    displayName: ${{ environmentName }} Infrastructure
+  - stage: ACA
+    displayName: Deploy ACA
     jobs:
     - template: azure-pipelines-core-deploy-template.yml
       parameters:
