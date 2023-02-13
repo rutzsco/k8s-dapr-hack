@@ -16,11 +16,26 @@ pool:
 
 steps:
 
-- task: AzureCLI@2
-  displayName: Deploy TrafficControlService
-  inputs:
-    azureSubscription: $(azureServiceConnection)
-    scriptType: bash
-    scriptLocation: inlineScript
-    inlineScript: |
-      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters containerImage=$(containerImage) envName=$(environment) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) > outputs.json
+- stage: CI
+   displayName: CI Stage 
+   variables:
+     kubernetesCluster: 'rutzsco-aks1'
+   jobs:
+   - deployment: Deploy
+     displayName: Deploy
+     environment: 'CI'
+     pool:
+        vmImage: 'ubuntu-latest'   
+      
+     strategy:
+        runOnce:
+          deploy:
+            steps:
+            - task: AzureCLI@2
+              displayName: Deploy TrafficControlService
+              inputs:
+                azureSubscription: $(azureServiceConnection)
+                scriptType: bash
+                scriptLocation: inlineScript
+                inlineScript: |
+                  az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters containerImage=$(containerImage) envName=$(environment) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) > outputs.json
