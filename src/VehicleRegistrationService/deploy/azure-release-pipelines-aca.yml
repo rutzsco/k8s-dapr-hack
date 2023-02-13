@@ -15,10 +15,8 @@ variables:
 stages:
 
 - stage: CI
-   displayName: CI Stage 
-   variables:
-     kubernetesCluster: 'rutzsco-aks1'
-   jobs:
+  displayName: CI Stage 
+  jobs:
    - deployment: Deploy
      displayName: Deploy
      environment: 'CI'
@@ -30,7 +28,7 @@ stages:
           deploy:
             steps:
             - task: AzureCLI@2
-              displayName: Deploy TrafficControlService
+              displayName: Deploy TrafficControlService 2
               inputs:
                 azureSubscription: $(azureServiceConnection)
                 scriptType: bash
