@@ -10,9 +10,6 @@ param acrUsername string
 param acrName string
 
 @secure()
-param redisPassword string
-
-@secure()
 param servicebusconnectionstring string
 
 @secure()
@@ -26,7 +23,7 @@ module law 'log-analytics.bicep' = {
   }
 }
 
-module containerAppEnvironment 'aca-environment.bicep' = {
+module environment 'aca-environment.bicep' = {
   name: 'container-app-environment'
   params: {
     name: envName
@@ -34,89 +31,8 @@ module containerAppEnvironment 'aca-environment.bicep' = {
 
     lawClientId: law.outputs.clientId
     lawClientSecret: law.outputs.clientSecret
-  }
-}
-
-resource redis 'Microsoft.Cache/redis@2022-06-01' existing = { 
-  name: 'redis-${envName}'
-}
-
-resource daprStateStore 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
-  name: '${envName}/statestore'
-  properties: {
-    componentType: 'state.redis'
-    version: 'v1'
-    ignoreErrors: false
-    initTimeout: '5m'
-    secrets: [
-      {
-        name: 'redispassword'
-        value: redis.listKeys().primaryKey
-      }
-    ]
-    metadata: [
-      {
-        name: 'redisHost'
-        value: 'redis-${envName}.redis.cache.windows.net:6380'
-      }
-      {
-        name: 'redisPassword'
-        secretRef: 'redispassword'
-      }
-      {
-        name: 'actorStateStore'
-        value: 'true'
-      }
-      {
-        name: 'enableTLS'
-        value: 'true'
-      }
-    ]
-    scopes: [
-      'trafficcontrolservice'
-    ]
-  }
-}
-
-resource daprPubSub 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
-  name: '${envName}/pubsub'
-  properties: {
-    componentType: 'pubsub.azure.servicebus'
-    version: 'v1'
-    ignoreErrors: false
-    initTimeout: '5m'
-    secrets: [
-      {
-        name: 'servicebusconnectionstring'
-        value: servicebusconnectionstring
-      }
-    ]
-    metadata: [
-      {
-        name: 'connectionString'
-        secretRef: 'servicebusconnectionstring'
-      }
-    ]
-    scopes: [ 'trafficcontrolservice', 'finecollectionservice' ]
-  }
-}
-
-resource daprLogicAppEmailBinding 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
-  name: '${envName}/sendmail'
-  properties: {
-    componentType: 'bindings.http'
-    version: 'v1'
-    ignoreErrors: false
-    initTimeout: '5m'
-    metadata: [
-      {
-        name: 'url'
-        value: logicAppEmailUrl
-      }
-    ]
-    scopes: [
-      'finecollectionservice'
-    ]
+    servicebusconnectionstring: servicebusconnectionstring
+    logicAppEmailUrl: logicAppEmailUrl
   }
 }
 
@@ -125,7 +41,7 @@ module vehicleRegistrationService 'aca.bicep' = {
   params: {
     name: 'vehicleregistrationservice'
     location: location
-    containerAppEnvironmentId: containerAppEnvironment.outputs.id
+    containerAppEnvironmentId: environment.outputs.id
     containerImage: vehicleRegistrationContainerImage
     envVars: []
     useExternalIngress: true
@@ -141,7 +57,7 @@ module fineCollectionService 'aca.bicep' = {
   params: {
     name: 'finecollectionservice'
     location: location
-    containerAppEnvironmentId: containerAppEnvironment.outputs.id
+    containerAppEnvironmentId: environment.outputs.id
     containerImage: fineCollectionServiceContainerImage
     envVars: []
     useExternalIngress: true
@@ -157,7 +73,7 @@ module trafficControlService 'aca.bicep' = {
   params: {
     name: 'trafficcontrolservice'
     location: location
-    containerAppEnvironmentId: containerAppEnvironment.outputs.id
+    containerAppEnvironmentId: environment.outputs.id
     containerImage: trafficControlServiceContainerImage
     envVars: []
     useExternalIngress: true
