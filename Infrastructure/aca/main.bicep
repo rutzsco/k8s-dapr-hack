@@ -37,6 +37,10 @@ module containerAppEnvironment 'aca-environment.bicep' = {
   }
 }
 
+resource redis 'Microsoft.Cache/redis@2022-06-01' existing = { 
+  name: 'redis-${envName}'
+}
+
 resource daprStateStore 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
   name: '${envName}/statestore'
   properties: {
@@ -47,13 +51,13 @@ resource daprStateStore 'Microsoft.App/managedEnvironments/daprComponents@2022-0
     secrets: [
       {
         name: 'redispassword'
-        value: redisPassword
+        value: redis.listKeys().primaryKey
       }
     ]
     metadata: [
       {
         name: 'redisHost'
-        value: 'redis-rutzsco-dapr-demo-ci.redis.cache.windows.net:6380'
+        value: 'redis-${envName}.redis.cache.windows.net:6380'
       }
       {
         name: 'redisPassword'

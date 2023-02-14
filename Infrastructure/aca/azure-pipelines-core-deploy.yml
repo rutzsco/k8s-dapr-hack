@@ -12,7 +12,7 @@ variables:
   azureServiceConnection: 'Demo Account'
   resourceGroupName: 'rutzsco-dapr-demo-aca'
   location: 'eastus'
-  environment: 'rutzsco-dapr-demo-aca-ci'
+  environment: 'rutzsco-dapr-demo-aca'
   containerImage: 'rutzscolabcr.azurecr.io/dapr-hack/vehicleregistrationservice:latest'
   templateFile: 'Infrastructure/aca/main.bicep'
   acrName: 'rutzscolabcr'
