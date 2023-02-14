@@ -10,7 +10,7 @@ trigger:
 variables:
   vmImageName: 'ubuntu-latest'
   azureServiceConnection: 'Demo Account'
-  resourceGroupName: 'rutzsco-dapr-demo'
+  resourceGroupName: 'rutzsco-dapr-demo-aca'
   location: 'eastus'
   environment: 'rutzsco-dapr-demo-aca-ci'
   containerImage: 'rutzscolabcr.azurecr.io/dapr-hack/vehicleregistrationservice:latest'
