@@ -66,6 +66,10 @@ resource sb 'Microsoft.ServiceBus/namespaces@2018-01-01-preview' existing = {
   name: 'sb-${name}'
 }
 
+resource sbar 'Microsoft.ServiceBus/namespaces/AuthorizationRules@2021-06-01-preview' existing = {
+  name: 'RootManageSharedAccessKey'
+  parent: sb
+}
 resource daprPubSub 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
   name: 'pubsub'
   parent: environment
@@ -77,7 +81,7 @@ resource daprPubSub 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01
     secrets: [
       {
         name: 'servicebusconnectionstring'
-        value: listKeys(sb.id, sb.apiVersion).primaryConnectionString
+        value: listKeys(sbar.id, sbar.apiVersion).primaryConnectionString
       }
     ]
     metadata: [
