@@ -10,9 +10,6 @@ param acrUsername string
 param acrName string
 
 @secure()
-param servicebusconnectionstring string
-
-@secure()
 param logicAppEmailUrl string
 
 module law 'log-analytics.bicep' = {
@@ -31,7 +28,6 @@ module environment 'aca-environment.bicep' = {
 
     lawClientId: law.outputs.clientId
     lawClientSecret: law.outputs.clientSecret
-    servicebusconnectionstring: servicebusconnectionstring
     logicAppEmailUrl: logicAppEmailUrl
   }
 }

@@ -3,8 +3,7 @@ param location string
 param lawClientId string
 @secure()
 param lawClientSecret string
-@secure()
-param servicebusconnectionstring string
+
 param logicAppEmailUrl string
 
 resource environment 'Microsoft.App/managedEnvironments@2022-03-01' = {
@@ -63,6 +62,10 @@ resource daprStateStore 'Microsoft.App/managedEnvironments/daprComponents@2022-0
   }
 }
 
+resource sb 'Microsoft.ServiceBus/namespaces@2018-01-01-preview' existing = { 
+  name: 'sb-${name}'
+}
+
 resource daprPubSub 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01' = {
   name: 'pubsub'
   parent: environment
@@ -74,7 +77,7 @@ resource daprPubSub 'Microsoft.App/managedEnvironments/daprComponents@2022-03-01
     secrets: [
       {
         name: 'servicebusconnectionstring'
-        value: servicebusconnectionstring
+        value: listKeys(sb.id, sb.apiVersion).primaryConnectionString
       }
     ]
     metadata: [
