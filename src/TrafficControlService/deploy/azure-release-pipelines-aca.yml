@@ -23,4 +23,4 @@ steps:
     scriptType: bash
     scriptLocation: inlineScript
     inlineScript: |
-      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters containerImage=$(containerImage) envName=$(environment) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) > outputs.json
+      az deployment group create --resource-group $(resourceGroupName) --template-file $(templateFile) --parameters containerImage=$(containerImage) envName=$(acaEnvironmentName) acrName=$(acrName) acrUsername=$(acrUsername) acrPassword=$(acrPassword) > outputs.json
