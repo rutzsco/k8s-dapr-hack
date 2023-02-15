@@ -1,6 +1,6 @@
 // K8 Dapr Endpoint 
-@baseUrlDapr =  http://20.81.59.37
-@baseUrl =  https://trafficcontrolservice.agreeableforest-837b7d25.eastus.azurecontainerapps.io
+@baseUrlDapr =  https://trafficcontrolservice.wonderfulwater-88ac0d11.eastus.azurecontainerapps.io
+@baseUrl =  https://trafficcontrolservice.wonderfulwater-88ac0d11.eastus.azurecontainerapps.io
 
 // K8 Direct Endpoint
 #@baseUrl =  http://20.241.231.194
@@ -33,7 +33,7 @@ Content-Type: application/json
 POST {{baseUrl}}/exitcam
 Content-Type: application/json
 
-{ "lane": 1, "licenseNumber": "XT-346-YZ", "timestamp": "2022-09-20T10:38:50" }
+{ "lane": 1, "licenseNumber": "XT-346-YZ", "timestamp": "2022-09-20T10:38:51" }
 
 
 
