@@ -34,8 +34,6 @@ steps:
       kubectl create secret generic dapr-traffic-control-iothub-sa --from-literal=iothubstorageaccountkey='$(IOT_HUB_STORAGE_ACCOUNT_KEY)'
       kubectl apply -f $(componentPath)/dapr-component-secrets.yml
       kubectl apply -f $(componentPath)/k8-secret-rbac.yml
-      kubectl apply -f $(componentPath)/dapr-component-binding-eventhub-entrycam.yml
-      kubectl apply -f $(componentPath)/dapr-component-binding-eventhub-exitcam.yml
       kubectl apply -f $(componentPath)/dapr-component-binding-http-mail.yml
       kubectl apply -f $(componentPath)/dapr-component-pubsub-servicebus.yml
       kubectl apply -f $(componentPath)/dapr-component-pubsub-subscription.yml
