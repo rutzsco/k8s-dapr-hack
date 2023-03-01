@@ -1,11 +1,15 @@
-@baseUrl =  https://vehicleregistrationservice.agreeableforest-837b7d25.eastus.azurecontainerapps.io
-@baseUrlAks = http://20.232.70.91
 
-// Get vehicle info by license-number
-GET {{baseUrl}}/vehicleinfo/KZ-49-VX
+@baseUrl = http://20.242.195.103
 
+// Status Dapr
+GET {{baseUrl}}/v1.0/invoke/vehicleregistrationservice/method/status
 
 ###
 
 // Get vehicle info by license-number DAPR
-GET {{baseUrlAks}}/v1.0/invoke/vehicleregistrationservice/method/vehicleinfo/KZ-49-VX
+GET {{baseUrl}}/v1.0/invoke/vehicleregistrationservice/method/vehicleinfo/KZ-49-VX
+
+
+###
+
+GET {{baseUrl}}/v1.0/secrets/secret-store/dapr-traffic-control-iothub
