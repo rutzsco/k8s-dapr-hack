@@ -5,7 +5,7 @@ trigger:
     - main
   paths:
     include:
-    - Infrastructure/dapr/*
+    - Infrastructure/aks/*
     
 variables:
   vmImageName: 'ubuntu-latest'
@@ -13,7 +13,7 @@ variables:
   location: 'eastus'
   aksResourceGroupName: 'rutzsco-aks-001'
   aksClusterName: 'aks-rutzsco-aks-001'
-  componentPath: 'Infrastructure/dapr'
+  componentPath: 'Infrastructure/aks'
 pool:
   vmImage: $(vmImageName)
 
