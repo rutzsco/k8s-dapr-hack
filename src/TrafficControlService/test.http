@@ -1,10 +1,10 @@
 // K8 Dapr Endpoint 
-@baseUrlDapr =  https://trafficcontrolservice.wonderfulwater-88ac0d11.eastus.azurecontainerapps.io
-@baseUrl =  https://trafficcontrolservice.wonderfulwater-88ac0d11.eastus.azurecontainerapps.io
+#@baseUrlDapr =  https://trafficcontrolservice.wonderfulwater-88ac0d11.eastus.azurecontainerapps.io
+#@baseUrl =  https://trafficcontrolservice.wonderfulwater-88ac0d11.eastus.azurecontainerapps.io
 
 // K8 Direct Endpoint
-#@baseUrl =  http://20.241.231.194
-#@baseUrlDapr =  http://20.241.231.205
+@baseUrl =  http://20.242.164.160
+@baseUrlDapr =  http://20.242.164.160
 
 // Status
 GET {{baseUrl}}/status
