@@ -36,8 +36,10 @@ steps:
       kubectl apply -f $(componentPath)/k8-secret-rbac.yml
 
       export MAIL_LOGIC_APP_URL=$(MAIL_LOGIC_APP_URL)
-      envsubst < dapr-component-binding-http-mail.yml | kubectl apply -f -
+      envsubst < $(componentPath)/dapr-component-binding-http-mail.yml | kubectl apply -f -
 
       kubectl apply -f $(componentPath)/dapr-component-pubsub-servicebus.yml
       kubectl apply -f $(componentPath)/dapr-component-pubsub-subscription.yml
-      kubectl apply -f $(componentPath)/dapr-component-state-redis.yml
+
+      export REDIS_HOST=$(REDIS_HOST)
+      envsubst < $(componentPath)/dapr-component-state-redis.yml | kubectl apply -f -
