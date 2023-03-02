@@ -7,6 +7,6 @@ spec:
   version: v1
   metadata:
     - name: url
-      value: https://prod-40.eastus.logic.azure.com:443/workflows/a38155d489bd4e18b1367b2157704dca/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=sNxmOiVhZI7hZ_s_hirEc3Hve2PNGAqeEtk6spluYxA
+      value: ${MAIL_LOGIC_APP_URL}
 scopes:
 - finecollectionservice
