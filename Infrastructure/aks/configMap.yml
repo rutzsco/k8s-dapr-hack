@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: dapr-traffic-control-config
 data:
-  # property-like keys; each key maps to a simple value
-  eventhub_storage_account: "3"
-  ui_properties_file_name: "user-interface.properties"
+  eventhub_storage_account: "TBD"
+  keyvault_name: "TBD"
+  keyvault_name: "TBD"
+  keyvault_name: "TBD"
