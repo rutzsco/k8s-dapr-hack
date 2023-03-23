@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+kind: Kustomization
+namespace: dapr-traffic-control
+resources:
+ - dapr-component-binding-http-mail.yaml
+ - dapr-component-pubsub-servicebus.yaml
+ - dapr-component-pubsub-subscription.yaml
+ - dapr-component-secrets.yaml
+ - dapr-component-secrets-akv.yaml
+ - dapr-component-state-redis.yaml
+ - deployment-FineCollectionService.yaml
+ - deployment-TrafficControlService.yaml
+ - deployment-VehicleRegistrationService.yaml
+ - k8-secret-rbac.yaml
+ 

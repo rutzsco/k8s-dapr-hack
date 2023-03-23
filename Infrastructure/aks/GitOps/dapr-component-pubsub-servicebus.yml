@@ -2,7 +2,6 @@ apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
   name: pubsub
-  namespace: dapr-traffic-control
 spec:
   type: pubsub.azure.servicebus
   version: v1
