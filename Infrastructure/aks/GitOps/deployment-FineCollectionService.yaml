@@ -59,7 +59,7 @@ spec:
     spec:
       containers:
       - name: finecollectionservice
-        image: rutzscolabcr.azurecr.io/dapr-hack/finecollectionservice:latest
+        image: mfgpgdevacr001.azurecr.io/dapr-traffic-control/finecollectionservice:latest
         ports:
         - containerPort: 6001
         imagePullPolicy: Always
