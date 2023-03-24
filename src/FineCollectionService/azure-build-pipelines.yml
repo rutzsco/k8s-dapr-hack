@@ -12,6 +12,7 @@ pool:
 variables:
   rootDirectory: 'src/FineCollectionService'
   dockerRegistryServiceConnection: 'aefdd2ab-f2b0-4625-ace6-1625a6ed13ec'
+  dockerRegistryServiceConnectionMFGP: 'c0aa6da8-718a-4385-b2d0-2f802e39a565'
   dockerImageRepository: 'dapr-hack/FineCollectionService'
   dockerFilePath: '$(Build.SourcesDirectory)/$(rootDirectory)/Dockerfile'
   dockerImageTag: '$(Build.BuildNumber)'
@@ -29,7 +30,17 @@ steps:
     tags: |
       $(dockerImageTag)
       latest
-
+- task: Docker@2
+  displayName: 'Container - Build and push'
+  inputs:
+    containerRegistry: '$(dockerRegistryServiceConnectionMFGP)'
+    repository: '$(dockerImageRepository)'
+    command: 'buildAndPush'
+    Dockerfile: '$(dockerFilePath)'
+    buildContext: '$(Build.SourcesDirectory)/$(rootDirectory)/'
+    tags: |
+      $(dockerImageTag)
+      latest
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.SourcesDirectory)/$(rootDirectory)/deploy/'
