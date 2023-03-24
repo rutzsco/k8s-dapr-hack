@@ -13,7 +13,7 @@ variables:
   rootDirectory: 'src/TrafficControlService'
   dockerRegistryServiceConnection: 'aefdd2ab-f2b0-4625-ace6-1625a6ed13ec'
   dockerRegistryServiceConnectionMFGP: 'c0aa6da8-718a-4385-b2d0-2f802e39a565'
-  dockerImageRepository: 'dapr-hack/TrafficControlService'
+  dockerImageRepository: 'dapr-traffic-control/TrafficControlService'
   dockerFilePath: '$(Build.SourcesDirectory)/$(rootDirectory)/Dockerfile'
   dockerImageTag: '$(Build.BuildNumber)'
 
