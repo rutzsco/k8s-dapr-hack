@@ -1,0 +1,24 @@
+name: 0.1.$(Rev:r)
+# ----------------------------------------------------------------------------------------------------
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - Infrastructure/bicep/*
+    
+variables:
+  vmImageName: 'ubuntu-latest'
+  azureServiceConnection: 'MFGPG'
+
+stages:
+- template: azure-pipelines-core-deploy-template.yml
+  parameters:
+    stageName: 'aca'
+    appName: 'mfg-pg-dapr-traffic-control'
+    environment: 'dev'
+    azureSubscription: $(azureServiceConnection)
+    location: 'eastus'
+    resourceGroupName: 'mfg-pg-dapr-traffic-control-dev-rg'
+    templateFile: '$(Build.Repository.LocalPath)/Infrastructure/bicep/main.bicep'
