@@ -16,7 +16,7 @@ stages:
 - template: azure-pipelines-core-deploy-template.yml
   parameters:
     stageName: 'aca'
-    appName: 'mfg-pg-dapr-traffic-control'
+    appName: 'mfg-pg-dapr-tc'
     environment: 'dev'
     azureSubscription: $(azureServiceConnection)
     location: 'eastus'
