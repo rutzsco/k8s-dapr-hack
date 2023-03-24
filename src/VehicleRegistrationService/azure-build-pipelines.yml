@@ -12,7 +12,7 @@ pool:
 variables:
   rootDirectory: 'src/VehicleRegistrationService'
   dockerRegistryServiceConnection: 'aefdd2ab-f2b0-4625-ace6-1625a6ed13ec'
-  dockerRegistryServiceConnectionMFGP: 'TBD'
+  dockerRegistryServiceConnectionMFGP: 'c0aa6da8-718a-4385-b2d0-2f802e39a565'
   dockerImageRepository: 'dapr-hack/VehicleRegistrationService'
   dockerFilePath: '$(Build.SourcesDirectory)/$(rootDirectory)/Dockerfile'
   dockerImageTag: '$(Build.BuildNumber)'
