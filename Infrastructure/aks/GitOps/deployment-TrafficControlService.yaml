@@ -60,7 +60,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: trafficcontrolservice
-        image: rutzscolabcr.azurecr.io/dapr-hack/trafficcontrolservice:latest
+        image: mfgpgdevacr001.azurecr.io/dapr-traffic-control/trafficcontrolservice:latest
         ports:
         - containerPort: 6000
         imagePullPolicy: Always
