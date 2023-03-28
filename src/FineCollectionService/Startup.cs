@@ -31,6 +31,7 @@ namespace FineCollectionService
             services.AddSingleton<NotificationService, NotificationService>();
 
             services.AddControllers().AddDapr();
+            services.AddApplicationInsightsTelemetry();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -22,6 +22,7 @@ namespace VehicleRegistrationService
             services.AddScoped<IVehicleInfoRepository, InMemoryVehicleInfoRepository>();
 
             services.AddControllers();
+            services.AddApplicationInsightsTelemetry();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
