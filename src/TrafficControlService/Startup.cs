@@ -1,3 +1,5 @@
+using Microsoft.ApplicationInsights.Channel;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,9 +24,10 @@ namespace TrafficControlService
         {
             services.AddSingleton<ISpeedingViolationCalculator>(new DefaultSpeedingViolationCalculator("A12", 10, 100, 5));
 
+
             services.AddHttpClient();
             services.AddDaprClient();
-
+            services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
             services.AddSingleton<IVehicleStateRepository, DaprVehicleStateRepository>();
 
             services.AddControllers();
@@ -45,6 +48,14 @@ namespace TrafficControlService
             {
                 endpoints.MapControllers();
             });
+        }
+    }
+
+    public class TelemetryInitializer : ITelemetryInitializer
+    {
+        public void Initialize(ITelemetry telemetry)
+        {
+            telemetry.Context.Cloud.RoleName = "TrafficControlService";
         }
     }
 }
