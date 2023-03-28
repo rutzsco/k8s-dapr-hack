@@ -30,17 +30,6 @@ steps:
     tags: |
       $(dockerImageTag)
       latest
-- task: Docker@2
-  displayName: 'Container - Build and push'
-  inputs:
-    containerRegistry: '$(dockerRegistryServiceConnectionMFGP)'
-    repository: '$(dockerImageRepository)'
-    command: 'buildAndPush'
-    Dockerfile: '$(dockerFilePath)'
-    buildContext: '$(Build.SourcesDirectory)/$(rootDirectory)/'
-    tags: |
-      $(dockerImageTag)
-      latest
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.SourcesDirectory)/$(rootDirectory)/deploy/'
