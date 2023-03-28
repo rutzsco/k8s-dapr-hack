@@ -3,8 +3,8 @@
 #@baseUrl =  https://trafficcontrolservice.wonderfulwater-88ac0d11.eastus.azurecontainerapps.io
 
 // K8 Direct Endpoint
-@baseUrl =  http://20.242.164.160
-@baseUrlDapr =  http://20.242.164.160
+@baseUrl =  http://20.242.210.203
+@baseUrlDapr =  http://20.242.210.203
 
 // Status
 GET {{baseUrl}}/status
@@ -33,7 +33,7 @@ Content-Type: application/json
 POST {{baseUrl}}/exitcam
 Content-Type: application/json
 
-{ "lane": 1, "licenseNumber": "XT-346-YZ", "timestamp": "2022-09-20T10:38:51" }
+{ "lane": 1, "licenseNumber": "XT-346-YZ", "timestamp": "2022-09-20T10:38:50" }
 
 
 
