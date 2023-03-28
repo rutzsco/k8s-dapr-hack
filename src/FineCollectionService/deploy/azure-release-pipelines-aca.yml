@@ -8,7 +8,7 @@ resources:
 variables:
   - group: dapr-traffic-control-demo
   - name: containerImage
-    value: '$(acrName).azurecr.io/dapr-hack/finecollectionservice:$(resources.pipeline.build.runName)'
+    value: '$(acrName).azurecr.io/dapr-traffic-control/finecollectionservice:$(resources.pipeline.build.runName)'
   - name: templateFile
     value: '$(Pipeline.Workspace)/build/Deploy/main.bicep'
 
