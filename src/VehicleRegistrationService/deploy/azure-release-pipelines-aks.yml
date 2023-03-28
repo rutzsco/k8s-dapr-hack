@@ -34,4 +34,4 @@ stages:
                 kubernetesServiceConnection: 'rutzsco-aks1'
                 namespace: 'dapr-traffic-control'
                 manifests: '$(Pipeline.Workspace)/build/Deploy/deployment.yaml'
-                containers: 'rutzscolabcr.azurecr.io/dapr-hack/vehicleregistrationservice:$(resources.pipeline.build.runName)'
+                containers: 'rutzscolabcr.azurecr.io/dapr-traffic-control/vehicleregistrationservice:$(resources.pipeline.build.runName)'
