@@ -1,8 +1,8 @@
 param location string = resourceGroup().location
 param envName string
-param vehicleRegistrationContainerImage string = 'rutzscolabcr.azurecr.io/dapr-hack/vehicleregistrationservice:latest'
-param fineCollectionServiceContainerImage string = 'rutzscolabcr.azurecr.io/dapr-hack/finecollectionservice:latest'
-param trafficControlServiceContainerImage string = 'rutzscolabcr.azurecr.io/dapr-hack/trafficcontrolservice:latest'
+param vehicleRegistrationContainerImage string = 'rutzscolabcr.azurecr.io/dapr-traffic-control/vehicleregistrationservice:latest'
+param fineCollectionServiceContainerImage string = 'rutzscolabcr.azurecr.io/dapr-traffic-control/finecollectionservice:latest'
+param trafficControlServiceContainerImage string = 'rutzscolabcr.azurecr.io/dapr-traffic-control/trafficcontrolservice:latest'
 
 @secure()
 param acrPassword string
