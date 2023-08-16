@@ -1,0 +1,74 @@
+# ----------------------------------------------------------------------------------------------------
+# Template to deploy Azure Resources for one environment
+# ----------------------------------------------------------------------------------------------------
+parameters:
+- name: variableGroupName
+  default: 'myVariableGroup'
+- name: environmentName
+  default: 'DEMO'
+- name: bicepFolderName
+  default: '.azdo/bicep'
+- name: bicepFileName
+  default: 'main.bicep'
+
+# ----------------------------------------------------------------------------------------------------
+jobs:
+- deployment: CreateInfra
+  displayName: Initialize Create Infra
+  environment: ${{ parameters.environmentName }}
+
+- job: CreateInfraJob
+  displayName: Create Infrastructure
+  variables:
+    - group: ${{ parameters.variableGroupName }}
+    - name: templateFile
+      value: '$(Pipeline.Workspace)/s/${{ parameters.bicepFolderName }}/${{ parameters.bicepFileName }}'
+    - name: environmentNameLower
+      value: ${{ lower(parameters.environmentName) }}
+
+  steps:
+  - bash: |
+      resourceGroupName=$(echo "$(resourceGroupPrefix)-$(environmentNameLower)" | tr '[:upper:]' '[:lower:]')
+      echo "resourceGroupName=$resourceGroupName"
+      echo "##vso[task.setvariable variable=resourceGroupName]$resourceGroupName"
+    displayName: 'Create Variables'
+    continueOnError: true
+      
+  - bash: |
+      echo "resourceGroupName=$(resourceGroupName)"
+      echo "orgName=$(orgName)"
+      echo "environmentName=$(environmentName)"
+      echo "environmentNameLower=$(environmentNameLower)"
+      echo "azureServiceConnection=$(azureServiceConnection)"
+      echo "subscriptionName=$(subscriptionName)"
+      echo "logicAppEmailUrl=$(logicAppEmailUrl)"
+      echo "location=$(location)"
+      echo "templateFile=$(templateFile)"
+      echo "System.DefaultWorkingDirectory=$(System.DefaultWorkingDirectory)"
+      tree $(Pipeline.Workspace)
+    displayName: 'Display Variables'
+    continueOnError: true
+
+  - task: AzureCLI@2
+    displayName: 'Create Resource Group'
+    inputs:
+      azureSubscription: $(subscriptionName)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: az group create --name $(resourceGroupName) --location $(location)
+
+  - task: AzureResourceManagerTemplateDeployment@3
+    displayName: 'Publish Bicep Resources'
+    inputs:
+      csmFile: $(templateFile)
+      overrideParameters: >
+        -orgName $(orgName) 
+        -envName $(environmentNameLower)
+      action: 'Create Or Update Resource Group'
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: $(azureServiceConnection)
+      resourceGroupName: $(resourceGroupName)
+      location: $(location)
+      templateLocation: 'Linked artifact'
+      deploymentMode: 'Incremental'
+      deploymentOutputs: armDeployment

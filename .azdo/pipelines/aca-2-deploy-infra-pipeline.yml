@@ -1,0 +1,19 @@
+# ----------------------------------------------------------------------------------------------------
+# Pipeline to deploy core Azure Container App resources
+# ----------------------------------------------------------------------------------------------------
+# This needs the variable group "TrafficControlDemo" - see readme.md for details.
+# ----------------------------------------------------------------------------------------------------
+name: $(date:yyyy).$(date:MM).$(date:dd)$(rev:.r)
+pool:
+  vmImage: 'ubuntu-latest'
+# ----------------------------------------------------------------------------------------------------
+trigger: none
+
+# ----------------------------------------------------------------------------------------------------
+stages:
+- template: pipes/infra-only-pipe.yml
+  parameters:
+    environments: ['DEMO']
+    variableGroupName: 'TrafficControlDemo'
+    bicepFolderName: '.azdo/bicep'
+    bicepFileName: 'main-infra.bicep'
