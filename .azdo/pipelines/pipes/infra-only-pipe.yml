@@ -1,0 +1,26 @@
+# ------------------------------------------------------------------------------------------------------------------------
+# Pipe to deploy Azure Resources Only for multiple environments
+# ------------------------------------------------------------------------------------------------------------------------
+parameters:
+- name: environments
+  type: object
+  default: ['DEMO']
+- name: variableGroupName
+  default: 'myVariableGroupName'
+- name: bicepFolderName
+  default: '.azdo/bicep'
+- name: bicepFileName
+  default: 'main.bicep'
+
+# ----------------------------------------------------------------------------------------------------
+stages:
+- ${{ each environmentName in parameters.environments }} :
+  - stage: CreateInfra${{ environmentName }}
+    displayName: Create ${{ environmentName }} Resources
+    jobs:
+    - template: templates/create-infra-template.yml
+      parameters:
+        variableGroupName: ${{ parameters.variableGroupName }}
+        environmentName: ${{ environmentName }}
+        bicepFolderName: ${{ parameters.bicepFolderName }}
+        bicepFileName: ${{ parameters.bicepFileName }}
