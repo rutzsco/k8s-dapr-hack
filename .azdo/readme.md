@@ -26,8 +26,8 @@ To deploy this application, execute the following steps:
 
 These are the main pipelines defined for this project:
 
-- **acr-1-container-registry-pipeline.yml:** Deploys the main-infra.bicep template and creates all of the Azure resources
-- **acr-2-deploy-infra-pipeline.yml:** Deploys the main-infra.bicep template and creates all of the Azure resources
+- **aca-1-container-registry-pipeline.yml:** Deploys the main-infra.bicep template and creates all of the Azure resources
+- **aca-2-deploy-infra-pipeline.yml:** Deploys the main-infra.bicep template and creates all of the Azure resources
 - **aca-3-deploy-apps-pipeline.yml:** Builds and deploys all (or some) of the applications to the ACA
 
 These YML files were designed to run as multi-stage environment deploys (i.e. DEV/QA/PROD). Each Azure DevOps environments can have permissions and approvals defined. For example, DEV can be published upon change, and QA/PROD environments can require an approval before any changes are made. If you don't supply environments, it will assume that it is a single environment named 'DEMO'.
