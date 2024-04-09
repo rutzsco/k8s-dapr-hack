@@ -69,9 +69,3 @@ spec:
           periodSeconds: 10
           timeoutSeconds : 5
           failureThreshold: 3
-        env:
-        - name: APPLICATIONINSIGHTS_CONNECTION_STRING 
-          valueFrom:
-              secretKeyRef:
-                name: dapr-traffic-control-ai
-                key: connectionstring
