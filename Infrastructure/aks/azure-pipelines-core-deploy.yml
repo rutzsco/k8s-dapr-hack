@@ -12,7 +12,7 @@ variables:
   azureServiceConnection: 'Demo Account'
   location: 'eastus'
   aksResourceGroupName: 'rutzsco-aks-001'
-  aksClusterName: 'aks-rutzsco-aks-001'
+  aksClusterName: 'rutzsco-aks-001'
   componentPath: 'Infrastructure/aks'
 pool:
   vmImage: $(vmImageName)
