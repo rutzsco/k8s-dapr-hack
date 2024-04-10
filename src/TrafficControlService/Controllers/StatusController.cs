@@ -18,7 +18,7 @@ namespace TrafficControlService.Controllers
         public IActionResult Get()
         {
             _logger.LogInformation("Processing reqest - status");
-            return new OkObjectResult("OK-V1");
+            return new OkResult();
         }
     }
 }
